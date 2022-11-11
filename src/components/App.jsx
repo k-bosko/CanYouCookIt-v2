@@ -1,9 +1,14 @@
 import React from "react";
+import Footer from "./Footer.jsx"
+import Header from "./Header.jsx"
+import Main from "./Main.jsx"
 
 function App() {
     return (
-      <div className="container">
-        <h1>Hello World!</h1>
+      <div>
+        <Header />
+        <Main />
+        <Footer />
       </div>
     );
   }

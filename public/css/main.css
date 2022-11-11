@@ -33,10 +33,14 @@
 
 h1 {
     font-family: "Raleway";
+    margin-top:  3rem;
+    margin-bottom:  3rem;
 }
+
 p {
     font-size: larger;
-    text-align: justify
+    text-align: justify;
+    font-family: "Raleway"
 }
 
 div a {
