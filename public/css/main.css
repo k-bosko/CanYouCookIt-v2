@@ -1,48 +1,52 @@
 .custom-navbar {
-    background-color: #EED61D;
+  background-color: #eed61d;
 }
 
-.btn-start{
-    background-color: #97C001;
-    color: black;
-    text-align: center;
-    font-size: 1.3rem;
+.btn-start {
+  background-color: #97c001;
+  color: black;
+  text-align: center;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  border: 2px solid hsl(198, 1%, 29%);
 }
 
-.btn-start:hover{
-    background-color: #769505;
-    color: black;
+.btn-start:hover {
+  background-color: #769505;
+  color: black;
+  border-radius: 5px;
+  border: 2px solid hsl(198, 1%, 29%);
 }
 
 .navbar-brand {
-    color: black;
-    font-family: "Josefin Sans";
-    font-size: 1.3rem;
+  color: black;
+  font-family: "Architects Daughter";
+  font-size: 1.5rem;
 }
 
 .nav-item {
-    font-family: "Josefin Sans";
-    font-size: 1.3rem;
-    color:black;
+  font-family: "Josefin Sans";
+  font-size: 1.3rem;
+  color: black;
 }
 
 .nav-item:hover {
-    text-decoration: underline;
-    color:black;
+  text-decoration: underline;
+  color: black;
 }
 
 h1 {
-    font-family: "Raleway";
-    margin-top:  3rem;
-    margin-bottom:  3rem;
+  font-family: "Raleway";
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 p {
-    font-size: larger;
-    text-align: justify;
-    font-family: "Raleway"
+  font-size: larger;
+  text-align: justify;
+  font-family: "Raleway";
 }
 
 div a {
-    text-decoration:none;
+  text-decoration: none;
 }

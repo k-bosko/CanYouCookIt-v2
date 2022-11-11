@@ -1,5 +1,6 @@
 import React from "react";
 
+//TODO refactor Main with props and smaller components?
 function Main() {
   return (
     <main>
@@ -21,7 +22,7 @@ function Main() {
               <a href="https://johnguerra.co/classNamees/webDevelopment_fall_2022/">
                 CS5610 Web Development
               </a>{" "}
-              className at the Northeastern University.
+              at the Northeastern University.
             </p>
           </div>
           <div className="col-5">
