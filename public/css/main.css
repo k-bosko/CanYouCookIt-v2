@@ -1,0 +1,44 @@
+.custom-navbar {
+    background-color: #EED61D;
+}
+
+.btn-start{
+    background-color: #97C001;
+    color: black;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.btn-start:hover{
+    background-color: #769505;
+    color: black;
+}
+
+.navbar-brand {
+    color: black;
+    font-family: "Josefin Sans";
+    font-size: 1.3rem;
+}
+
+.nav-item {
+    font-family: "Josefin Sans";
+    font-size: 1.3rem;
+    color:black;
+}
+
+.nav-item:hover {
+    text-decoration: underline;
+    color:black;
+}
+
+h1 {
+    font-family: "Raleway";
+}
+p {
+    font-size: larger;
+    text-align: justify
+}
+
+div a {
+    text-decoration:none;
+}
