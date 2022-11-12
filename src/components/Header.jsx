@@ -32,12 +32,12 @@ function Header() {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-item nav-link" href="/ingredients.html">
+              <a className="nav-item nav-link" href="/ingredients">
                 Ingredients
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-item nav-link" href="/recipes.html">
+              <a className="nav-item nav-link" href="/recipes">
                 Recipes
               </a>
             </li>

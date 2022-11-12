@@ -1,15 +1,16 @@
 import React from "react";
-import Footer from "./Footer.jsx";
-import Header from "./Header.jsx";
-import Main from "./Main.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./homepage/HomePage";
+import RecipesPage from "./recipespage/RecipesPage";
 
 function App() {
   return (
-    <div>
-      <Header />
-      <Main />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" exact element={<HomePage />} />
+        <Route path="/recipes" exact element={<RecipesPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
