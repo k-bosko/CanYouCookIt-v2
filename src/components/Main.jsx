@@ -14,7 +14,7 @@ function Main() {
             </p>
             <p>
               The app was built using React + Express.js + MongoDB +
-              HTML5/Bootstrap. Its current version doesn't support user
+              HTML5/Bootstrap. Its current version does not support user
               authentication.
             </p>
             <p>
@@ -30,7 +30,7 @@ function Main() {
               <button
                 className="btn btn-start"
                 type="button"
-                onclick="location.href='/ingredients.html'"
+                onClick="location.href='/ingredients.html'"
               >
                 Get Started
               </button>

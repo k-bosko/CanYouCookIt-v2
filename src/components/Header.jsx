@@ -24,20 +24,20 @@ function Header() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-item nav-link active" href="/">
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <a className="nav-item nav-link active" href="/">
                 Home
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-item nav-link" href="/ingredients.html">
+            <li className="nav-item">
+              <a className="nav-item nav-link" href="/ingredients.html">
                 Ingredients
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-item nav-link" href="/recipes.html">
+            <li className="nav-item">
+              <a className="nav-item nav-link" href="/recipes.html">
                 Recipes
               </a>
             </li>
