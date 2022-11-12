@@ -50,3 +50,12 @@ p {
 div a {
   text-decoration: none;
 }
+
+.recipe-title {
+  text-align: center;
+}
+
+.recipe-img {
+  width: 100%;
+  height: auto;
+}

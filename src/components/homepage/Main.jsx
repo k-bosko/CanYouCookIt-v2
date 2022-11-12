@@ -30,6 +30,8 @@ function Main() {
               <button
                 className="btn btn-start"
                 type="button"
+                //TODO fix onClick
+                //react-dom.development.js:86 Warning: Expected `onClick` listener to be a function, instead got a value of `string` type.
                 onClick="location.href='/ingredients.html'"
               >
                 Get Started
