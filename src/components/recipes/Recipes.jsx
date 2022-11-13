@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe.jsx";
+import RecipeDetails from "./RecipeDetails.jsx";
 
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
+  const [detail, setDetail] = useState({
+    instructions: "",
+    extendedIngredients: [],
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -24,12 +29,40 @@ function Recipes() {
     fetchData();
   }, []);
 
+  async function showRecipeDetails(id) {
+    console.log(id);
+    try {
+      const response = await fetch(`/api/recipe/${id}`);
+      if (response.ok) {
+        const detailJson = await response.json();
+        setDetail(detailJson);
+      } else {
+        console.error(`Error in fetch /api/recipe/${id}`);
+      }
+    } catch (e) {
+      console.log({ error: e });
+    }
+  }
   return (
-    <div className="container">
-      <div className="row">
-        {recipes.map((recipe, idx) => (
-          <Recipe key={idx} title={recipe.title} image={recipe.image} />
-        ))}
+    <div className="row">
+      <div className="col-6">
+        <div className="row">
+          {recipes.map((recipe) => (
+            <Recipe
+              key={recipe.id}
+              id={recipe.id}
+              title={recipe.title}
+              image={recipe.image}
+              onClick={showRecipeDetails}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="col-6">
+        <RecipeDetails
+          instructions={detail.instructions}
+          ingredients={detail.extendedIngredients}
+        />
       </div>
     </div>
   );

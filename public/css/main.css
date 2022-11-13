@@ -59,3 +59,7 @@ div a {
   width: 100%;
   height: auto;
 }
+
+.recipe-card {
+  width: "15rem";
+}

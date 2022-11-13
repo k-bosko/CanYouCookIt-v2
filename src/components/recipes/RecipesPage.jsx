@@ -4,7 +4,6 @@ import Header from "../Header.jsx";
 import Recipes from "./Recipes.jsx";
 
 function RecipesPage() {
-
   return (
     <div>
       <Header />

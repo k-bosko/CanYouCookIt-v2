@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 Recipe.propTypes = {
   title: PropTypes.string,
   image: PropTypes.string,
+  id: PropTypes.number,
+  onClick: PropTypes.func,
 };
 
 function Recipe(props) {
+  const [isMouseOver, setMouseOver] = useState(false);
+
+  function handleMouseOver() {
+    setMouseOver(true);
+  }
+
+  function handleMouseOut() {
+    setMouseOver(false);
+  }
+
   return (
-    <div className="card me-5 mb-5" style={{ width: "15rem" }}>
-      {console.log("here", props.title)}
+    <div
+      className="card me-5 mb-5"
+      style={{
+        border: isMouseOver ? "1px solid red" : "1px solid lightgrey",
+        width: "15rem",
+      }}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+      onClick={() => props.onClick(props.id)}
+    >
       <div className="card-body">
-        <img
-          src={props.image}
-          alt={props.title}
-          className="recipe-img mb-4"
-        />
+        <img src={props.image} alt={props.title} className="recipe-img mb-4" />
         <h5 className="card-title recipe-title">{props.title}</h5>
       </div>
     </div>
