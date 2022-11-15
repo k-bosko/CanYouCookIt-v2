@@ -19,6 +19,7 @@ function Recipes() {
         if (response.ok) {
           const recipesJson = await response.json();
           setRecipes(recipesJson);
+          await showRecipeDetails(recipesJson[0].id);
         } else {
           console.error("Error in fetch api/recipes");
         }
@@ -30,7 +31,7 @@ function Recipes() {
   }, []);
 
   async function showRecipeDetails(id) {
-    console.log(id);
+    // console.log(id);
     try {
       const response = await fetch(`/api/recipe/${id}`);
       if (response.ok) {
@@ -60,6 +61,8 @@ function Recipes() {
       </div>
       <div className="col-6">
         <RecipeDetails
+          recipeId={detail.id}
+          title={detail.title}
           instructions={detail.instructions}
           ingredients={detail.extendedIngredients}
         />
