@@ -5,10 +5,9 @@ import RecipeIngredient from "./RecipeIngredient.jsx";
 RecipeDetails.propTypes = {
   instructions: PropTypes.string,
   ingredients: PropTypes.array,
-  key: PropTypes.number,
   title: PropTypes.string,
   recipeId: PropTypes.number,
-  buttonText: PropTypes.string,
+  buttonText: PropTypes.object,
   onClick: PropTypes.func,
   isMyRecipesPage: PropTypes.bool,
 };
@@ -36,7 +35,11 @@ function RecipeDetails(props) {
     props.title !== "" && (
       <div>
         <button
-          className={props.isMyRecipesPage? "btn btn-custom btn-red": "btn btn-custom btn-green"}
+          className={
+            props.isMyRecipesPage
+              ? "btn btn-custom btn-red"
+              : "btn btn-custom btn-green"
+          }
           style={{ float: "right" }}
           onClick={() => props.onClick(props.recipeId)}
         >
