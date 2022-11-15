@@ -89,11 +89,29 @@ router.get("/api/recipe/:id", async function (req, res) {
     res.status(404).send({ err: "No recipe ID" });
   }
 });
+
+router.get("/api/myrecipes/:id", async function (req, res) {
+  const recipeId = Number(req.params.id);
+
+  console.log("got recipeId", recipeId);
+
+  if (recipeId) {
+    const saveRecipeResponse = await mongo.saveRecipe(recipeId);
+    if (saveRecipeResponse.acknowledged) {
+      res.status(200).send();
+    } else {
+      console.log("couldn't save recipe to myrecipes in MongoDB");
+    }
+  } else {
+    console.log("no recipe id was provided with this request");
+  }
+});
+
 /* ------Katerina end----- */
 
 export default router;
 
-//@Anshul - pass me ingredients like so:
+// @Anshul - pass me ingredients like so:
 // bodyToSend = {
 //     "ingredients": ["apples", "flour", "sugar"]
 // }
