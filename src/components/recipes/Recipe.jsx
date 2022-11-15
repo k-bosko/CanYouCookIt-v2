@@ -32,7 +32,7 @@ function Recipe(props) {
     >
       <div className="card-body">
         <img src={props.image} alt={props.title} className="recipe-img mb-4" />
-        <h5 className="card-title recipe-title">{props.title}</h5>
+        <h5 className="card-title recipe-title">{props.title.length > 30 ? props.title.substring(0, 30) + "...": props.title}</h5>
       </div>
     </div>
   );
