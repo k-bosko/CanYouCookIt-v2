@@ -2,8 +2,7 @@
   background-color: #eed61d;
 }
 
-.btn-start {
-  background-color: #97c001;
+.btn-custom {
   color: black;
   text-align: center;
   font-size: 1.3rem;
@@ -11,13 +10,27 @@
   border: 2px solid hsl(198, 1%, 29%);
 }
 
-.btn-start:hover {
-  background-color: #769505;
+.btn-custom:hover {
   color: black;
   border-radius: 5px;
   border: 2px solid hsl(198, 1%, 29%);
 }
 
+.btn-green {
+  background-color: #97c0017f;
+}
+
+.btn-green:hover {
+  background-color: #769505;
+}
+
+.btn-red {
+  background-color: #c02a0167;
+}
+
+.btn-red:hover {
+  background-color: #c02a01;
+}
 .navbar-brand {
   color: black;
   font-family: "Architects Daughter";

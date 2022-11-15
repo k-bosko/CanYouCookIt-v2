@@ -7,7 +7,7 @@ Recipes.propTypes = {
   fetchApi: PropTypes.string,
   fetchMethod: PropTypes.string,
   buttonText: PropTypes.string,
-  buttonOnClickAdd: PropTypes.bool,
+  isMyRecipesPage: PropTypes.bool,
 };
 
 function Recipes(props) {
@@ -108,9 +108,9 @@ function Recipes(props) {
           instructions={detail.instructions}
           ingredients={detail.extendedIngredients}
           buttonText={props.buttonText}
-          buttonOnClickAdd={props.buttonOnClickAdd}
+          isMyRecipesPage={props.isMyRecipesPage}
           onClick={
-            props.buttonOnClickAdd ? addToMyRecipes : deleteFromMyRecipes
+            props.isMyRecipesPage ? addToMyRecipes : deleteFromMyRecipes
           }
         />
       </div>

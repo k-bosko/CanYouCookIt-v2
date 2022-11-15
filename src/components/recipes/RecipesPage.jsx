@@ -12,8 +12,8 @@ function RecipesPage() {
         <Recipes
           fetchApi={"/api/recipes"}
           fetchMethod={"POST"}
-          buttonText={"Add"}
-          buttonOnClickAdd={true}
+          buttonText={<i className="bi bi-plus-lg"></i>}
+          isMyRecipesPage={false}
         />
       </div>
       <Footer />

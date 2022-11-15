@@ -9,8 +9,8 @@ RecipeDetails.propTypes = {
   title: PropTypes.string,
   recipeId: PropTypes.number,
   buttonText: PropTypes.string,
-  buttonOnClickAdd: PropTypes.bool,
   onClick: PropTypes.func,
+  isMyRecipesPage: PropTypes.bool,
 };
 
 function RecipeDetails(props) {
@@ -33,30 +33,32 @@ function RecipeDetails(props) {
   }
 
   return (
-    <div>
-      <button
-        className="btn btn-start"
-        style={{ float: "right" }}
-        onClick={() => props.onClick(props.recipeId)}
-      >
-        {props.buttonText}
-      </button>
-      <h3>{props.title}</h3>
-      <hr />
-      <h3>Ingredients</h3>
-      {/* Note: some ingredients returned from API call to Spoonacular return doubled
+    props.title !== "" && (
+      <div>
+        <button
+          className={props.isMyRecipesPage? "btn btn-custom btn-red": "btn btn-custom btn-green"}
+          style={{ float: "right" }}
+          onClick={() => props.onClick(props.recipeId)}
+        >
+          {props.buttonText}
+        </button>
+        <h3 style={{ display: "inline" }}>{props.title}</h3>
+        <hr />
+        <h3>Ingredients</h3>
+        {/* Note: some ingredients returned from API call to Spoonacular return doubled
        --> need to filter with getUnique */}
-      {getUnique(props.ingredients, "id").map((ingredient) => (
-        <RecipeIngredient key={ingredient.id} text={ingredient.original} />
-      ))}
-      <hr />
-      <h3>Instructions</h3>
-      <p>
-        {props.instructions === null
-          ? "No instructions provided"
-          : removeHtmlTags(props.instructions)}
-      </p>
-    </div>
+        {getUnique(props.ingredients, "id").map((ingredient) => (
+          <RecipeIngredient key={ingredient.id} text={ingredient.original} />
+        ))}
+        <hr />
+        <h3>Instructions</h3>
+        <p>
+          {props.instructions === null
+            ? "No instructions provided"
+            : removeHtmlTags(props.instructions)}
+        </p>
+      </div>
+    )
   );
 }
 

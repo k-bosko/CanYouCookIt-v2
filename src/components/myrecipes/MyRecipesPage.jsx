@@ -16,8 +16,8 @@ function MyRecipesPage() {
         <Recipes
           fetchApi={fetchApi}
           fetchMethod={"GET"}
-          buttonText={"Delete"}
-          buttonOnClickAdd={false}
+          buttonText={<i className="bi bi-x-lg"></i>}
+          isMyRecipesPage={true}
         />
       </div>
       <Footer />

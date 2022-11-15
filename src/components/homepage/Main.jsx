@@ -28,7 +28,7 @@ function Main() {
           <div className="col-5">
             <div className="col-md-12 pt-5 text-center">
               <button
-                className="btn btn-start"
+                className="btn btn-custom btn-green"
                 type="button"
                 //TODO fix onClick
                 //react-dom.development.js:86 Warning: Expected `onClick` listener to be a function, instead got a value of `string` type.
