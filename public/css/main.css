@@ -7,17 +7,17 @@
   text-align: center;
   font-size: 1.3rem;
   border-radius: 5px;
-  border: 2px solid hsl(198, 1%, 29%);
+  border: 1px solid hsl(198, 1%, 29%);
 }
 
 .btn-custom:hover {
   color: black;
   border-radius: 5px;
-  border: 2px solid hsl(198, 1%, 29%);
+  border: 1px solid hsl(198, 1%, 29%);
 }
 
 .btn-green {
-  background-color: #97c0017f;
+  background-color: white;
 }
 
 .btn-green:hover {
@@ -25,7 +25,7 @@
 }
 
 .btn-red {
-  background-color: #c02a0167;
+  background-color: white;
 }
 
 .btn-red:hover {
