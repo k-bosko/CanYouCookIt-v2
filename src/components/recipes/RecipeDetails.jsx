@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import RecipeIngredient from "./RecipeIngredient.jsx";
 
@@ -8,6 +8,7 @@ RecipeDetails.propTypes = {
   key: PropTypes.number,
   title: PropTypes.string,
   recipeId: PropTypes.number,
+  needAddButton: PropTypes.bool,
 };
 
 function RecipeDetails(props) {
@@ -29,7 +30,6 @@ function RecipeDetails(props) {
     return str.replace(/<\/?[^>]+(>|$)/g, "");
   }
 
-
   async function addToMyRecipes(id) {
     console.log("will add this recipe id", id);
     try {
@@ -46,13 +46,15 @@ function RecipeDetails(props) {
 
   return (
     <div>
-      <button
-        className="btn btn-start"
-        style={{ float: "right" }}
-        onClick={() => addToMyRecipes(props.recipeId)}
-      >
-        Add
-      </button>
+      {props.needAddButton && (
+        <button
+          className="btn btn-start"
+          style={{ float: "right" }}
+          onClick={() => addToMyRecipes(props.recipeId)}
+        >
+          Add
+        </button>
+      )}
       <h3>{props.title}</h3>
       <hr />
       <h3>Ingredients</h3>

@@ -71,7 +71,7 @@ function MongoModule() {
       };
 
       const append = {
-        $push: {
+        $addToSet: {
           recipeId: recipeId,
         },
       };
@@ -83,9 +83,32 @@ function MongoModule() {
     }
   }
 
+  async function getRecipes(userId) {
+    console.log("got userId", userId);
+    let client;
+
+    try {
+      client = new MongoClient(url, MONGO_DEFAULTS);
+      await client.connect();
+      console.log("Connected to Mongo Server");
+
+      const mongo = client.db(DB_NAME);
+      const myRecipesCollection = mongo.collection(COLLECTION_MYRECIPES);
+
+      const query = { _id: ObjectId(userId) };
+      const options = { projection: { _id: 0, recipeId: 1 } };
+      const recipeIds = await myRecipesCollection.findOne(query, options);
+
+      return recipeIds;
+    } finally {
+      await client.close();
+    }
+  }
+
   db.getRecipe = getRecipe;
   db.createRecipe = createRecipe;
   db.saveRecipe = saveRecipe;
+  db.getRecipes = getRecipes;
   /* ------Katerina end----- */
 
   return db;

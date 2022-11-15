@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe.jsx";
 import RecipeDetails from "./RecipeDetails.jsx";
+import PropTypes from "prop-types";
 
-function Recipes() {
+Recipes.propTypes = {
+  fetchApi: PropTypes.string,
+  fetchMethod: PropTypes.string,
+  needAddButton: PropTypes.bool,
+};
+
+function Recipes(props) {
   const [recipes, setRecipes] = useState([]);
   const [detail, setDetail] = useState({
     instructions: "",
@@ -12,13 +19,14 @@ function Recipes() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/recipes", {
-          method: "POST",
+        const response = await fetch(props.fetchApi, {
+          method: props.fetchMethod,
           headers: { "Content-Type": "application/json" },
         });
         if (response.ok) {
           const recipesJson = await response.json();
           setRecipes(recipesJson);
+          console.log(recipesJson);
           await showRecipeDetails(recipesJson[0].id);
         } else {
           console.error("Error in fetch api/recipes");
@@ -65,6 +73,7 @@ function Recipes() {
           title={detail.title}
           instructions={detail.instructions}
           ingredients={detail.extendedIngredients}
+          needAddButton={props.needAddButton}
         />
       </div>
     </div>

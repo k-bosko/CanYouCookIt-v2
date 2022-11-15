@@ -9,7 +9,7 @@ function RecipesPage() {
       <Header />
       <div className="container">
         <h1>Search results:</h1>
-        <Recipes />
+        <Recipes fetchApi={"/api/recipes"} fetchMethod={"POST"} needAddButton={true}/>
       </div>
       <Footer />
     </div>

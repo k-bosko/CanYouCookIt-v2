@@ -3,7 +3,6 @@ import fetch from "node-fetch";
 import mongo from "../db/mongoDB.js";
 //TODO remove import of dummy recipes
 import dummy_recipes from "./dummy_recipes.js";
-import dummy_detail from "./dummy_details.js";
 
 const router = express.Router();
 
@@ -15,6 +14,7 @@ router.post("/api/recipes", async function (req, res) {
   //   console.log(req);
   //const ingredients = req.body.ingredients;
   const ingredients = ["apples", "flour", "sugar"];
+
   console.log(ingredients);
 
   if (ingredients) {
@@ -26,8 +26,8 @@ router.post("/api/recipes", async function (req, res) {
 
     try {
       // TODO: uncomment real request & remove dummy_recipes
-      //   const recipiesResponse = await fetch(url, options);
-      //   const recipes = await recipiesResponse.json();
+      // const recipiesResponse = await fetch(url, options);
+      // const recipes = await recipiesResponse.json();
 
       const recipes = dummy_recipes;
 
@@ -65,9 +65,6 @@ router.get("/api/recipe/:id", async function (req, res) {
       try {
         const detailResponse = await fetch(url, options);
         recipeDetail = await detailResponse.json();
-
-        //TODO remove mock data
-        // recipeDetail = dummy_detail;
 
         if (recipeDetail) {
           const detailResponse = await mongo.createRecipe(recipeDetail);
@@ -107,6 +104,33 @@ router.get("/api/myrecipes/:id", async function (req, res) {
   }
 });
 
+router.get("/api/:userId/myrecipes", async function (req, res) {
+  const userId = req.params.userId;
+
+  // {
+  //   recipeId: [ 640352, 641803, 651707 ]
+  // }
+
+  if (userId) {
+    const recipeIds = await mongo.getRecipes(userId);
+    console.log(recipeIds);
+    if (recipeIds) {
+      let recipesJson = new Array();
+      for (let id of recipeIds.recipeId) {
+        const recipe = await mongo.getRecipe(id);
+        recipesJson.push(recipe);
+      }
+      res.status(200).json(recipesJson);
+    } else {
+      console.log(
+        `couldn't retrieve myrecipes for user=${userId} from MongoDB`
+      );
+    }
+  } else {
+    console.log("no userId was provided with this request");
+  }
+
+});
 /* ------Katerina end----- */
 
 export default router;
