@@ -1,4 +1,5 @@
 import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
+import { v4 as uuidv4 } from "uuid";
 
 function MongoModule() {
   const db = {};
@@ -35,6 +36,8 @@ function MongoModule() {
 
   async function createRecipe(recipe) {
     console.log("got recipe", recipe);
+    recipe.uuid = uuidv4();
+
     let client;
 
     try {
@@ -43,7 +46,7 @@ function MongoModule() {
       console.log("Connected to Mongo Server");
 
       const mongo = client.db(DB_NAME);
-      const recipesCollection = mongo.collection(COLLECTION_MYRECIPES);
+      const recipesCollection = mongo.collection(COLLECTION_RECIPES);
 
       const result = await recipesCollection.insertOne(recipe);
       return result;
