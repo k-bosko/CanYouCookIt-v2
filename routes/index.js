@@ -107,13 +107,10 @@ router.get("/api/myrecipes/:id", async function (req, res) {
 router.get("/api/:userId/myrecipes", async function (req, res) {
   const userId = req.params.userId;
 
-  // {
-  //   recipeId: [ 640352, 641803, 651707 ]
-  // }
 
   if (userId) {
     const recipeIds = await mongo.getRecipes(userId);
-    console.log(recipeIds);
+    // console.log(recipeIds);
     if (recipeIds) {
       let recipesJson = new Array();
       for (let id of recipeIds.recipeId) {
@@ -129,7 +126,24 @@ router.get("/api/:userId/myrecipes", async function (req, res) {
   } else {
     console.log("no userId was provided with this request");
   }
+});
 
+router.delete("/api/myrecipes/:id", async function (req, res) {
+  const recipeId = Number(req.params.id);
+
+  console.log("got recipeId", recipeId);
+
+  if (recipeId) {
+    const deleteRecipeResponse = await mongo.deleteRecipe(recipeId);
+    if (deleteRecipeResponse.acknowledged) {
+
+      res.status(200).send();
+    } else {
+      console.log("couldn't delete recipe to myrecipes in MongoDB");
+    }
+  } else {
+    console.log("no recipe id was provided with this request");
+  }
 });
 /* ------Katerina end----- */
 

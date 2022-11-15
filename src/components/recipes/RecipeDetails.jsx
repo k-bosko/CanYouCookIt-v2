@@ -8,7 +8,9 @@ RecipeDetails.propTypes = {
   key: PropTypes.number,
   title: PropTypes.string,
   recipeId: PropTypes.number,
-  needAddButton: PropTypes.bool,
+  buttonText: PropTypes.string,
+  buttonOnClickAdd: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 function RecipeDetails(props) {
@@ -30,31 +32,15 @@ function RecipeDetails(props) {
     return str.replace(/<\/?[^>]+(>|$)/g, "");
   }
 
-  async function addToMyRecipes(id) {
-    console.log("will add this recipe id", id);
-    try {
-      const response = await fetch(`/api/myrecipes/${id}`);
-      if (response.ok) {
-        console.log("successfully added a recipe to myrecipes");
-      } else {
-        console.error(`Error in fetch /api/myrecipes/${id}`);
-      }
-    } catch (e) {
-      console.log({ error: e });
-    }
-  }
-
   return (
     <div>
-      {props.needAddButton && (
-        <button
-          className="btn btn-start"
-          style={{ float: "right" }}
-          onClick={() => addToMyRecipes(props.recipeId)}
-        >
-          Add
-        </button>
-      )}
+      <button
+        className="btn btn-start"
+        style={{ float: "right" }}
+        onClick={() => props.onClick(props.recipeId)}
+      >
+        {props.buttonText}
+      </button>
       <h3>{props.title}</h3>
       <hr />
       <h3>Ingredients</h3>

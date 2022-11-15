@@ -105,10 +105,43 @@ function MongoModule() {
     }
   }
 
+  async function deleteRecipe(recipeId) {
+    let client;
+
+    try {
+      client = new MongoClient(url, MONGO_DEFAULTS);
+      await client.connect();
+      console.log("Connected to Mongo Server");
+
+      const mongo = client.db(DB_NAME);
+      const myRecipesCollection = mongo.collection(COLLECTION_MYRECIPES);
+
+      //TODO change to real userId when users implemented
+      const userId = "637314759f3b63df03cb0055";
+
+      const query = {
+        _id: ObjectId(userId),
+      };
+
+      const deleteFromArray = {
+        $pull: { recipeId: recipeId },
+      };
+
+      const result = await myRecipesCollection.updateOne(
+        query,
+        deleteFromArray
+      );
+      return result;
+    } finally {
+      await client.close();
+    }
+  }
+
   db.getRecipe = getRecipe;
   db.createRecipe = createRecipe;
   db.saveRecipe = saveRecipe;
   db.getRecipes = getRecipes;
+  db.deleteRecipe = deleteRecipe;
   /* ------Katerina end----- */
 
   return db;

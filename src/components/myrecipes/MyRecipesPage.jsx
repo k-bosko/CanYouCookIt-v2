@@ -13,7 +13,12 @@ function MyRecipesPage() {
       <Header />
       <div className="container">
         <h1>My Recipes</h1>
-        <Recipes fetchApi={fetchApi} fetchMethod={"GET"} needAddButton={false} />
+        <Recipes
+          fetchApi={fetchApi}
+          fetchMethod={"GET"}
+          buttonText={"Delete"}
+          buttonOnClickAdd={false}
+        />
       </div>
       <Footer />
     </div>
