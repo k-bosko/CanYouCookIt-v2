@@ -107,7 +107,6 @@ router.get("/api/myrecipes/:id", async function (req, res) {
 router.get("/api/:userId/myrecipes", async function (req, res) {
   const userId = req.params.userId;
 
-
   if (userId) {
     const recipeIds = await mongo.getRecipes(userId);
     // console.log(recipeIds);
@@ -136,7 +135,6 @@ router.delete("/api/myrecipes/:id", async function (req, res) {
   if (recipeId) {
     const deleteRecipeResponse = await mongo.deleteRecipe(recipeId);
     if (deleteRecipeResponse.acknowledged) {
-
       res.status(200).send();
     } else {
       console.log("couldn't delete recipe to myrecipes in MongoDB");

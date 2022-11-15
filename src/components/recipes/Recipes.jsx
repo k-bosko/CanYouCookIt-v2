@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe.jsx";
 import RecipeDetails from "./RecipeDetails.jsx";
 import PropTypes from "prop-types";
+// import { v4 as uuidv4 } from "uuid";
 
 Recipes.propTypes = {
   fetchApi: PropTypes.string,
   fetchMethod: PropTypes.string,
-  buttonText: PropTypes.string,
+  buttonText: PropTypes.object,
   isMyRecipesPage: PropTypes.bool,
 };
 
@@ -86,10 +87,20 @@ function Recipes(props) {
     }
   }
 
+  // const newRecipeId = uuidv4();
   return (
     <div className="row">
       <div className="col-6">
         <div className="row">
+          {/* {props.isMyRecipesPage && (
+            <Recipe
+              key={newRecipeId}
+              uuid={newRecipeId}
+              title="Add New Recipe"
+              image="/images/new-recipe.png"
+              isMyRecipesPage={props.isMyRecipesPage}
+            />
+          )} */}
           {recipes.map((recipe) => (
             <Recipe
               key={recipe.id}
@@ -109,9 +120,7 @@ function Recipes(props) {
           ingredients={detail.extendedIngredients}
           buttonText={props.buttonText}
           isMyRecipesPage={props.isMyRecipesPage}
-          onClick={
-            props.isMyRecipesPage ? addToMyRecipes : deleteFromMyRecipes
-          }
+          onClick={props.isMyRecipesPage ? deleteFromMyRecipes : addToMyRecipes}
         />
       </div>
     </div>

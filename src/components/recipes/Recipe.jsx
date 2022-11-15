@@ -5,7 +5,9 @@ Recipe.propTypes = {
   title: PropTypes.string,
   image: PropTypes.string,
   id: PropTypes.number,
+  uuid: PropTypes.string,
   onClick: PropTypes.func,
+  isMyRecipesPage: PropTypes.bool,
 };
 
 function Recipe(props) {
@@ -18,7 +20,7 @@ function Recipe(props) {
   function handleMouseOut() {
     setMouseOver(false);
   }
-
+  
   return (
     <div
       className="card me-5 mb-5"
@@ -28,11 +30,17 @@ function Recipe(props) {
       }}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
-      onClick={() => props.onClick(props.id)}
+      onClick={() =>
+        props.onClick(props.isMyRecipesPage ? props.uuid : props.id)
+      }
     >
       <div className="card-body">
         <img src={props.image} alt={props.title} className="recipe-img mb-4" />
-        <h5 className="card-title recipe-title">{props.title.length > 30 ? props.title.substring(0, 30) + "...": props.title}</h5>
+        <h5 className="card-title recipe-title">
+          {props.title.length > 30
+            ? props.title.substring(0, 30) + "..."
+            : props.title}
+        </h5>
       </div>
     </div>
   );
