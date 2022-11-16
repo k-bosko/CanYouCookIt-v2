@@ -48,7 +48,7 @@ router.post("/api/recipes", async function (req, res) {
 
 /* GET recipe by ID - either from external API (with write to Mongo) or from MongoDB */
 router.get("/api/recipe/:id", async function (req, res) {
-  const recipeId = Number(req.params.id);
+  const recipeId = req.params.id;
 
   console.log("got recipeId", recipeId);
 
@@ -88,7 +88,7 @@ router.get("/api/recipe/:id", async function (req, res) {
 });
 
 router.get("/api/myrecipes/:id", async function (req, res) {
-  const recipeId = Number(req.params.id);
+  const recipeId = req.params.id;
 
   console.log("got recipeId", recipeId);
 
@@ -128,7 +128,7 @@ router.get("/api/:userId/myrecipes", async function (req, res) {
 });
 
 router.delete("/api/myrecipes/:id", async function (req, res) {
-  const recipeId = Number(req.params.id);
+  const recipeId = req.params.id;
 
   console.log("got recipeId", recipeId);
 

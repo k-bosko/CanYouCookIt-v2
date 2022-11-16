@@ -1,5 +1,4 @@
 import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
-import { v4 as uuidv4 } from "uuid";
 
 function MongoModule() {
   const db = {};
@@ -36,7 +35,7 @@ function MongoModule() {
 
   async function createRecipe(recipe) {
     console.log("got recipe", recipe);
-    recipe.uuid = uuidv4();
+    recipe.id = String(recipe.id);
 
     let client;
 

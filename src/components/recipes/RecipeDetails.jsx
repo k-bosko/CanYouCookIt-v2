@@ -6,7 +6,7 @@ RecipeDetails.propTypes = {
   instructions: PropTypes.string,
   ingredients: PropTypes.array,
   title: PropTypes.string,
-  recipeId: PropTypes.number,
+  recipeId: PropTypes.string,
   buttonText: PropTypes.object,
   onClick: PropTypes.func,
   isMyRecipesPage: PropTypes.bool,

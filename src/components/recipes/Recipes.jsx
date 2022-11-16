@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe.jsx";
 import RecipeDetails from "./RecipeDetails.jsx";
 import PropTypes from "prop-types";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 Recipes.propTypes = {
   fetchApi: PropTypes.string,
@@ -41,7 +41,6 @@ function Recipes(props) {
   }, []);
 
   async function showRecipeDetails(id) {
-    // console.log(id);
     try {
       const response = await fetch(`/api/recipe/${id}`);
       if (response.ok) {
@@ -87,24 +86,29 @@ function Recipes(props) {
     }
   }
 
-  // const newRecipeId = uuidv4();
+  async function createNewRecipe(id){
+    console.log("will create new recipe with id", id);
+    
+  }
+
+  const newRecipeId = uuidv4();
   return (
     <div className="row">
       <div className="col-6">
         <div className="row">
-          {/* {props.isMyRecipesPage && (
+          {props.isMyRecipesPage && (
             <Recipe
               key={newRecipeId}
-              uuid={newRecipeId}
+              recipeId={newRecipeId}
               title="Add New Recipe"
               image="/images/new-recipe.png"
-              isMyRecipesPage={props.isMyRecipesPage}
+              onClick={createNewRecipe}
             />
-          )} */}
+          )}
           {recipes.map((recipe) => (
             <Recipe
               key={recipe.id}
-              id={recipe.id}
+              recipeId={recipe.id}
               title={recipe.title}
               image={recipe.image}
               onClick={showRecipeDetails}
