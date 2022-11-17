@@ -1,5 +1,6 @@
 import express from "express";
 import logger from "morgan";
+import fileUpload from "express-fileupload";
 import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 
@@ -10,6 +11,11 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
+app.use(
+  fileUpload({
+    createParentPath: true,
+  })
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); //parse form data

@@ -107,7 +107,7 @@ function MongoModule() {
     }
   }
 
-  async function deleteRecipe(recipeId) {
+  async function deleteRecipefromMyRecipes(recipeId) {
     let client;
 
     try {
@@ -139,10 +139,33 @@ function MongoModule() {
     }
   }
 
+  async function deleteRecipe(recipeId) {
+    let client;
+
+    try {
+      client = new MongoClient(url, MONGO_DEFAULTS);
+      await client.connect();
+      console.log("Connected to Mongo Server");
+
+      const mongo = client.db(DB_NAME);
+      const myRecipesCollection = mongo.collection(COLLECTION_RECIPES);
+
+      const query = {
+        id: recipeId,
+      };
+
+      const result = await myRecipesCollection.deleteOne(query);
+      return result;
+    } finally {
+      await client.close();
+    }
+  }
+
   db.getRecipe = getRecipe;
   db.createRecipe = createRecipe;
   db.saveRecipe = saveRecipe;
   db.getRecipes = getRecipes;
+  db.deleteRecipefromMyRecipes = deleteRecipefromMyRecipes;
   db.deleteRecipe = deleteRecipe;
   /* ------Katerina end----- */
 

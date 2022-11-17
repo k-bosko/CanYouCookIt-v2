@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import PropTypes from "prop-types";
 
-function CreateRecipe() {
+CreateRecipe.propTypes = {
+  recipes: PropTypes.array,
+  setRecipes: PropTypes.func,
+  detail: PropTypes.object,
+  setDetail: PropTypes.func,
+};
+
+function CreateRecipe(props) {
+  //Modal
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -40,21 +48,58 @@ function CreateRecipe() {
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const [title, image, ingredients, instructions, id] = event.target;
+    const inredientId = uuidv4();
+    const imageFile = image.files[0];
+    const response = await handleFile(imageFile);
+    const imageUrl = response ? response.fileUrl : "/images/new-recipe.png";
+
     const newRecipe = {
       id: id.name,
       title: title.value,
-      image: image.value ? image.value : "/images/new-recipe.png",
-      ingredients: ingredients.value,
+      image: imageUrl,
+      extendedIngredients: [{ id: inredientId, original: ingredients.value }],
       instructions: instructions.value,
     };
-    console.log(newRecipe);
     handleClose();
     addToMyRecipes(id.name);
     addToRecipes(newRecipe);
+    props.setRecipes([...props.recipes, newRecipe]);
+    props.setDetail({
+      title: title.value,
+      instructions: instructions.value,
+      extendedIngredients: [{ id: inredientId, original: ingredients.value }],
+    });
   };
+
+  async function handleFile(file) {
+    const formData = new FormData();
+    formData.append("imageFile", file);
+
+    if (!file) {
+      return;
+    }
+
+    console.log(file);
+    try {
+      const response = await fetch("/api/myrecipes/upload", {
+        method: "POST",
+        body: formData,
+      });
+      if (response.ok) {
+        console.log("successfully uploaded an image");
+        const result = await response.json();
+
+        return result;
+      } else {
+        console.error("Error in fetch api/myrecipes/upload");
+      }
+    } catch (e) {
+      console.log({ error: e });
+    }
+  }
 
   return (
     <>
@@ -73,7 +118,11 @@ function CreateRecipe() {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Image (optional):</Form.Label>
-              <Form.Control type="file" accept=".png, .jpg, .jpeg" />
+              <Form.Control
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                name="imageFile"
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Ingredients:</Form.Label>
