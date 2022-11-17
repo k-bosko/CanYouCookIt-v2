@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import Recipe from "./Recipe.jsx";
 import RecipeDetails from "./RecipeDetails.jsx";
-import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 
 Recipes.propTypes = {
   fetchApi: PropTypes.string,
@@ -28,10 +27,10 @@ function Recipes(props) {
         if (response.ok) {
           const recipesJson = await response.json();
           setRecipes(recipesJson);
-          console.log(recipesJson);
+          console.log("on Load", recipesJson);
           await showRecipeDetails(recipesJson[0].id);
         } else {
-          console.error("Error in fetch api/recipes");
+          console.error("Error in fetch");
         }
       } catch (e) {
         console.log({ error: e });
@@ -86,25 +85,10 @@ function Recipes(props) {
     }
   }
 
-  async function createNewRecipe(id){
-    console.log("will create new recipe with id", id);
-    
-  }
-
-  const newRecipeId = uuidv4();
   return (
     <div className="row">
       <div className="col-6">
         <div className="row">
-          {props.isMyRecipesPage && (
-            <Recipe
-              key={newRecipeId}
-              recipeId={newRecipeId}
-              title="Add New Recipe"
-              image="/images/new-recipe.png"
-              onClick={createNewRecipe}
-            />
-          )}
           {recipes.map((recipe) => (
             <Recipe
               key={recipe.id}

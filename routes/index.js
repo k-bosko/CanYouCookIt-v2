@@ -143,6 +143,23 @@ router.delete("/api/myrecipes/:id", async function (req, res) {
     console.log("no recipe id was provided with this request");
   }
 });
+
+router.post("/api/recipes/new", async function (req, res) {
+  const newRecipe = req.body.newRecipe;
+
+  console.log("got newRecipe", newRecipe);
+
+  if (newRecipe) {
+    const newRecipeResponse = await mongo.createRecipe(newRecipe);
+    if (newRecipeResponse.acknowledged) {
+      res.status(200).send();
+    } else {
+      console.log("couldn't write recipe to MongoDB");
+    }
+  } else {
+    res.status(404).send({ err: "no newRecipe was provided" });
+  }
+});
 /* ------Katerina end----- */
 
 export default router;
