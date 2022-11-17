@@ -50,9 +50,14 @@ function RecipeDetails(props) {
         <h3>Ingredients</h3>
         {/* Note: some ingredients returned from API call to Spoonacular return doubled
        --> need to filter with getUnique */}
-        {getUnique(props.ingredients, "id").map((ingredient) => (
-          <RecipeIngredient key={ingredient.id} text={ingredient.original} />
-        ))}
+        {props.ingredients === null
+          ? "No ingredients provided"
+          : getUnique(props.ingredients, "id").map((ingredient) => (
+              <RecipeIngredient
+                key={ingredient.id}
+                text={ingredient.original}
+              />
+            ))}
         <hr />
         <h3>Instructions</h3>
         <p>
