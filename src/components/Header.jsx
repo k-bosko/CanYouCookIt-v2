@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -10,9 +11,9 @@ function Header() {
           alt="can-you-cook-it-logo"
           height="45"
         />
-        <a className="navbar-brand ps-3 mt-2" href="/">
+         <Link className="navbar-brand ps-3 mt-2" to="/">
           CanYouCookIt?
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -27,19 +28,19 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <a className="nav-item nav-link active" href="/">
+              <Link className="nav-item nav-link active" to="/">
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-item nav-link" href="/ingredients">
+              <Link className="nav-item nav-link" to="/ingredients">
                 Ingredients
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-item nav-link" href="/recipes">
+              <Link className="nav-item nav-link" to="/recipes">
                 Recipes
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

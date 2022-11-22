@@ -1,6 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-//TODO refactor Main with props and smaller components?
 function Main() {
   return (
     <main>
@@ -18,24 +18,21 @@ function Main() {
               authentication.
             </p>
             <p>
-              The project is part of the{" "}
-              <a href="https://johnguerra.co/classNamees/webDevelopment_fall_2022/">
+              The project is part of the
+              <Link to="https://johnguerra.co/classNamees/webDevelopment_fall_2022/">
                 CS5610 Web Development
-              </a>{" "}
+              </Link>
               at the Northeastern University.
             </p>
           </div>
           <div className="col-5">
             <div className="col-md-12 pt-5 text-center">
-              <button
+              <Link
                 className="btn btn-custom btn-green"
-                type="button"
-                //TODO fix onClick
-                //react-dom.development.js:86 Warning: Expected `onClick` listener to be a function, instead got a value of `string` type.
-                onClick="location.href='/ingredients.html'"
+                to="/recipes"
               >
                 Get Started
-              </button>
+              </Link>
             </div>
           </div>
         </div>
