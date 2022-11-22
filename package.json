@@ -6,6 +6,9 @@
   "description": "CanYouCookIt app to match recipes with given ingredients",
   "main": "app.js",
   "type": "module",
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
