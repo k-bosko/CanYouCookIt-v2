@@ -23,7 +23,7 @@ router.post("/api/recipes/search", async function (req, res) {
   //const ingredients = req.body.ingredients;
   const ingredients = ["apples", "flour", "sugar"];
 
-  console.log(ingredients);
+  // console.log(ingredients);
 
   if (ingredients) {
     const baseUrl = "https://api.spoonacular.com/recipes/findByIngredients";
@@ -123,8 +123,8 @@ router.get("/api/:userId/myrecipes", async function (req, res) {
   const userId = req.params.userId;
 
   if (userId) {
+    console.log("router: getting recipes...");
     const recipes = await mongo.getRecipes(userId);
-    console.log("inside router /api/:userId/myrecipes", recipes);
     if (recipes) {
       res.status(200).json(recipes);
     } else {
@@ -148,7 +148,7 @@ router.delete("/api/myrecipes/:id", async function (req, res) {
       recipe.image.split("/images/userUpload/").length > 1 ? true : false;
     if (isUserUpload) {
       const imagePath = __dirname + "/../public" + recipe.image;
-      console.log("imagePath", imagePath);
+      // console.log("imagePath", imagePath);
       fs.unlink(imagePath, (err) => {
         if (err) {
           console.error(err);
@@ -174,7 +174,7 @@ router.delete("/api/myrecipes/:id", async function (req, res) {
 router.post("/api/myrecipes/new", async function (req, res) {
   const newRecipe = req.body.newRecipe;
 
-  console.log("got newRecipe", newRecipe);
+  // console.log("got newRecipe", newRecipe);
 
   if (newRecipe) {
     const newRecipeResponse = await mongo.createRecipe(newRecipe);
