@@ -4,8 +4,6 @@ import Header from "../Header.jsx";
 import Recipes from "./Recipes.jsx";
 
 function SearchRecipesPage() {
-  //TODO change to realUserId when users implemented
-  const userId = "637314759f3b63df03cb0055";
 
   const [recipes, setRecipes] = useState([]);
 
@@ -38,7 +36,7 @@ function SearchRecipesPage() {
       <Header />
       <div className="container">
         <h1>Search results:</h1>
-        <Recipes recipes={recipes} setRecipes={setRecipes} userId={userId}/>
+        <Recipes recipes={recipes} setRecipes={setRecipes}/>
       </div>
       <Footer />
     </div>

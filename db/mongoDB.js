@@ -14,7 +14,7 @@ function MongoModule() {
   };
 
   /* ------Katerina----- */
-  async function getRecipe(id) {
+  async function getRecipe(recipeId, userId) {
     let client;
 
     try {
@@ -25,9 +25,8 @@ function MongoModule() {
       const mongo = client.db(DB_NAME);
       const myRecipesCollection = mongo.collection(COLLECTION_MYRECIPES);
 
-      const query = { id: id };
+      const query = { id: recipeId, userId: userId };
       const recipe = await myRecipesCollection.findOne(query);
-      // console.log("inside getRecipe got recipe", recipe);
       return recipe;
     } finally {
       await client.close();
@@ -95,6 +94,9 @@ function MongoModule() {
   }
 
   async function addRecipe(recipe) {
+    delete recipe._id;
+
+    recipe._id = ObjectId();
     recipe.timestamp = Date.now();
     let client;
 
@@ -114,7 +116,7 @@ function MongoModule() {
   }
 
   async function getRecipes(userId) {
-    console.log("got userId", userId);
+    // console.log("got userId", userId);
     let client;
 
     try {
@@ -134,7 +136,7 @@ function MongoModule() {
     }
   }
 
-  async function deleteRecipe(recipeId) {
+  async function deleteRecipe(recipeId, userId) {
     let client;
 
     try {
@@ -147,6 +149,7 @@ function MongoModule() {
 
       const query = {
         id: recipeId,
+        userId: userId,
       };
 
       const result = await myRecipesCollection.deleteOne(query);
@@ -156,8 +159,7 @@ function MongoModule() {
     }
   }
 
-  async function updateRecipe(updatedRecipe) {
-    delete updatedRecipe._id;
+  async function updateRecipe(updatedRecipe, userId) {
 
     let client;
 
@@ -169,7 +171,8 @@ function MongoModule() {
       const mongo = client.db(DB_NAME);
       const myRecipesCollection = mongo.collection(COLLECTION_MYRECIPES);
 
-      const filter = { id: updatedRecipe.id };
+      const filter = { _id: ObjectId(updatedRecipe._id), userId: userId };
+      delete updatedRecipe._id;
       const update = { $set: { ...updatedRecipe } };
 
       const result = await myRecipesCollection.updateOne(filter, update);
@@ -179,6 +182,27 @@ function MongoModule() {
     }
   }
 
+  async function checkUserImage(recipeId, image, userId) {
+    let client;
+
+    try {
+      client = new MongoClient(url, MONGO_DEFAULTS);
+      await client.connect();
+      console.log("Connected to Mongo Server");
+
+      const mongo = client.db(DB_NAME);
+      const myRecipesCollection = mongo.collection(COLLECTION_MYRECIPES);
+
+      const query = { id: recipeId, userId: userId, image: image };
+      const recipe = await myRecipesCollection.findOne(query);
+
+      return recipe;
+    } finally {
+      await client.close();
+    }
+  }
+
+
   db.getRecipe = getRecipe;
   db.checkRecipe = checkRecipe;
   db.createRecipe = createRecipe;
@@ -187,6 +211,7 @@ function MongoModule() {
   db.getRecipes = getRecipes;
   db.deleteRecipe = deleteRecipe;
   db.updateRecipe = updateRecipe;
+  db.checkUserImage = checkUserImage;
   /* ------Katerina end----- */
 
   return db;

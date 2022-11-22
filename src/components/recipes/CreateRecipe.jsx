@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
 
 CreateRecipe.propTypes = {
-  userId: PropTypes.string,
   recipes: PropTypes.array,
   setRecipes: PropTypes.func,
 };
@@ -39,7 +38,10 @@ function CreateRecipe(props) {
   }
 
   async function addNewToMyRecipes(newRecipe) {
-    newRecipe.userId = props.userId;
+    newRecipe.instructions = newRecipe.instructions
+      ? newRecipe.instructions
+      : "No instructions provided.";
+      
     console.log("addNewToMyRecipes id", newRecipe.id);
     try {
       const response = await fetch("/api/myrecipes/new", {

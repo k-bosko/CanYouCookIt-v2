@@ -5,15 +5,13 @@ import Recipes from "./Recipes.jsx";
 import CreateRecipe from "./CreateRecipe.jsx";
 
 function MyRecipesPage() {
-  //TODO change to realUserId when users implemented
-  const userId = "637314759f3b63df03cb0055";
 
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`/api/${userId}/myrecipes`, {
+        const response = await fetch("/api/myrecipes", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -40,7 +38,6 @@ function MyRecipesPage() {
         <div className="d-flex align-content-start">
           <h1>My Recipes</h1>
           <CreateRecipe
-            userId={userId}
             recipes={recipes}
             setRecipes={setRecipes}
           />

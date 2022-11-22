@@ -4,7 +4,6 @@ import RecipeCard from "./RecipeCard.jsx";
 import RecipeDetails from "./RecipeDetails.jsx";
 
 Recipes.propTypes = {
-  userId: PropTypes.string,
   recipes: PropTypes.array,
   setRecipes: PropTypes.func,
   isMyRecipesPage: PropTypes.bool,
@@ -37,7 +36,6 @@ function Recipes(props) {
   async function addSearchedToMyRecipes(newRecipe) {
     setIsAdding(true);
 
-    newRecipe.userId = props.userId;
     console.log("addSearchedToMyRecipes id", newRecipe.id);
     try {
       const response = await fetch("/api/myrecipes/add", {

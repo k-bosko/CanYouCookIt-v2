@@ -67,6 +67,7 @@ function RecipeDetailsElement(props) {
   }
 
   async function updateRecipe(updatedRecipe) {
+
     console.log("will update this recipe id", updatedRecipe.id);
     try {
       const response = await fetch("/api/myrecipes/update", {

@@ -17,6 +17,16 @@ const router = express.Router();
 const RECIPES_LIMIT = 5;
 
 /* ------Katerina----- */
+
+/* Middleware for mock authentication */
+router.use("*", async function (req, res, next) {
+  // Mock authentication before every request
+  req.user = { userId: "637314759f3b63df03cb0055" };
+  //637314759f3b63df03cb0056
+  //637314759f3b63df03cb0055
+  next();
+});
+
 /* POST recipes by ingredients */
 router.post("/api/recipes/search", async function (req, res) {
   //   console.log(req);
@@ -100,11 +110,15 @@ router.get("/api/recipes/:id", async function (req, res) {
 
 router.post("/api/myrecipes/add", async function (req, res) {
   const recipe = req.body.newRecipe;
+  const userId = req.user.userId;
+  recipe.userId = userId;
+
   console.log("got recipe id", recipe.id);
 
   if (recipe) {
-    let getRecipeResponse = await mongo.getRecipe(recipe.id);
-    if (!getRecipeResponse) {
+    let getRecipeResponse = await mongo.getRecipe(recipe.id, userId);
+    console.log("getRecipeResponse", getRecipeResponse);
+    if (getRecipeResponse === null) {
       const addRecipesResponse = await mongo.addRecipe(recipe);
       if (addRecipesResponse.acknowledged) {
         res.status(200).send({ msg: "recipe added successfully" });
@@ -119,8 +133,8 @@ router.post("/api/myrecipes/add", async function (req, res) {
   }
 });
 
-router.get("/api/:userId/myrecipes", async function (req, res) {
-  const userId = req.params.userId;
+router.get("/api/myrecipes", async function (req, res) {
+  const userId = req.user.userId;
 
   if (userId) {
     console.log("router: getting recipes...");
@@ -128,9 +142,7 @@ router.get("/api/:userId/myrecipes", async function (req, res) {
     if (recipes) {
       res.status(200).json(recipes);
     } else {
-      console.log(
-        `couldn't retrieve myrecipes for user=${userId} from MongoDB`
-      );
+      console.log("couldn't retrieve myrecipes for user from MongoDB");
     }
   } else {
     console.log("no userId was provided with this request");
@@ -139,25 +151,35 @@ router.get("/api/:userId/myrecipes", async function (req, res) {
 
 router.delete("/api/myrecipes/:id", async function (req, res) {
   const recipeId = req.params.id;
+  const userId = req.user.userId;
 
   console.log("inside delete recipeId", recipeId);
 
   if (recipeId) {
-    const recipe = await mongo.getRecipe(recipeId);
+    const recipe = await mongo.getRecipe(recipeId, userId);
     const isUserUpload =
       recipe.image.split("/images/userUpload/").length > 1 ? true : false;
+
     if (isUserUpload) {
-      const imagePath = __dirname + "/../public" + recipe.image;
-      // console.log("imagePath", imagePath);
-      fs.unlink(imagePath, (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-      });
+      //check if it used by another recipe before unlinking
+      const isUserImage = await mongo.checkUserImage(
+        recipeId,
+        recipe.image,
+        userId
+      );
+      if (!isUserImage) {
+        const imagePath = __dirname + "/../public" + recipe.image;
+        // console.log("imagePath", imagePath);
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+            console.error(err);
+            return;
+          }
+        });
+      }
     }
 
-    const myRecipesRes = await mongo.deleteRecipe(recipeId);
+    const myRecipesRes = await mongo.deleteRecipe(recipeId, userId);
 
     if (myRecipesRes.acknowledged) {
       res.status(200).send();
@@ -173,7 +195,8 @@ router.delete("/api/myrecipes/:id", async function (req, res) {
 
 router.post("/api/myrecipes/new", async function (req, res) {
   const newRecipe = req.body.newRecipe;
-
+  const userId = req.user.userId;
+  newRecipe.userId = userId;
   // console.log("got newRecipe", newRecipe);
 
   if (newRecipe) {
@@ -213,11 +236,16 @@ router.post("/api/myrecipes/upload", function (req, res) {
 
 router.post("/api/myrecipes/update", async function (req, res) {
   const updatedRecipe = req.body.updatedRecipe;
+  console.log("updatedRecipe", updatedRecipe);
+  const userId = req.user.userId;
 
   console.log("got updatedRecipe", updatedRecipe);
 
   if (updatedRecipe) {
-    const updatedRecipeResponse = await mongo.updateRecipe(updatedRecipe);
+    const updatedRecipeResponse = await mongo.updateRecipe(
+      updatedRecipe,
+      userId
+    );
     if (updatedRecipeResponse.acknowledged) {
       res.status(200).send();
     } else {
