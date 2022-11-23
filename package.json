@@ -35,7 +35,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "fix-lint": "eslint --fix .",
-    "nodemon": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www.js"
+    "nodemon": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www.js",
+    "initializeDB": "./db/initializeDB/initializeDB.sh"
   },
   "eslintConfig": {
     "extends": [
