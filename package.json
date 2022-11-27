@@ -9,8 +9,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "nodemon": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www.js",
-    "postinstall": "cd front && npm install && npm run build",
-    "build": "echo 'im here'"
+    "postinstall": "cd front && npm install && npm run build"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
