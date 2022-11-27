@@ -134,7 +134,7 @@ function RecipeDetailsElement(props) {
           Update
         </Button>
         <Button
-          variant="btn btn-custom btn-red"
+          variant="btn btn-custom btn-red ms-2"
           type="button"
           onClick={(evt) => {
             evt.preventDefault();
