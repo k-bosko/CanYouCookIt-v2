@@ -7,8 +7,10 @@
   "description": "CanYouCookIt app to match recipes with given ingredients",
   "type": "module",
   "scripts": {
-    "start": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www.js",
-    "postinstall": "cd front && npm install && npm run build"
+    "start": "node ./bin/www",
+    "nodemon": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www.js",
+    "postinstall": "cd front && npm install && npm run build",
+    "build": "echo 'im here'"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
