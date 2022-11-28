@@ -1,6 +1,14 @@
 .ingredient-img {
-    border-radius: 25px;
-    width: 10rem;
-    font-size: 0;
-    max-height: 8rem;
-  }
+  border-radius: 25px;
+  width: 10rem;
+  font-size: 0;
+  max-height: 8rem;
+}
+.dropdown-content {
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  width: 100%;
+}

@@ -154,7 +154,7 @@ export default function InventoryPage(props) {
             <div className="col-6">
               <form autocomplete="off">
                 <input
-                  className="form-control"
+                  className="form-control mb-3"
                   list="possible-ingredients"
                   name="item"
                   id="item"
