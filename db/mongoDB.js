@@ -184,25 +184,6 @@ function MongoModule() {
     }
   }
 
-  async function checkUserImage(recipeId, image, userId) {
-    let client;
-
-    try {
-      client = new MongoClient(url, MONGO_DEFAULTS);
-      await client.connect();
-      console.log("Connected to Mongo Server");
-
-      const mongo = client.db(DB_NAME);
-      const myRecipesCollection = mongo.collection(COLLECTION_MYRECIPES);
-
-      const query = { id: recipeId, userId: userId, image: image };
-      const recipe = await myRecipesCollection.findOne(query);
-
-      return recipe;
-    } finally {
-      await client.close();
-    }
-  }
 
 
   db.getRecipe = getRecipe;
@@ -213,7 +194,6 @@ function MongoModule() {
   db.getRecipes = getRecipes;
   db.deleteRecipe = deleteRecipe;
   db.updateRecipe = updateRecipe;
-  db.checkUserImage = checkUserImage;
   /* ------Katerina end----- */
 
   /* ------Anshul start----- */

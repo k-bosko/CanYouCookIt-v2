@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
 
 import { removeHtmlTags } from "../front/src/utils/utils.js";
 import mongo from "../db/mongoDB.js";
@@ -156,28 +157,15 @@ router.delete("/api/myrecipes/:id", async function (req, res) {
 
   if (recipeId) {
     const recipe = await mongo.getRecipe(recipeId, userId);
+
     const isUserUpload =
       recipe.image.split("/images/userUpload/").length > 1 ? true : false;
 
     if (isUserUpload) {
-      //check if it used by another recipe before unlinking
-      const isUserImage = await mongo.checkUserImage(
-        recipeId,
-        recipe.image,
-        userId
-      );
-      if (!isUserImage) {
-        const imagePath = __dirname + "/../public" + recipe.image;
-        // console.log("imagePath", imagePath);
-        fs.unlink(imagePath, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      }
+      const imagePath = __dirname + "/../front/build" + recipe.image;
+      console.log("imagePath", imagePath);
+      fs.unlinkSync(imagePath);
     }
-
     const myRecipesRes = await mongo.deleteRecipe(recipeId, userId);
 
     if (myRecipesRes.acknowledged) {
@@ -210,7 +198,7 @@ router.post("/api/myrecipes/new", async function (req, res) {
 });
 
 router.post("/api/myrecipes/upload", function (req, res) {
-  console.log("inside upload request", req.files);
+  // console.log("inside upload request", req.files);
 
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json("No files were uploaded.");
@@ -218,11 +206,10 @@ router.post("/api/myrecipes/upload", function (req, res) {
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   const sampleFile = req.files.imageFile;
+  const imageName = `${uuidv4()}_${sampleFile.name}`;
+  const uploadPath = `${__dirname}/../front/build/images/userUpload/${imageName}`;
 
-  const uploadPath =
-    __dirname + "/../public/images/userUpload/" + sampleFile.name;
-
-  const uploadUrl = `/images/userUpload/${sampleFile.name}`;
+  const uploadUrl = `/images/userUpload/${imageName}`;
 
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(uploadPath, function (err) {
