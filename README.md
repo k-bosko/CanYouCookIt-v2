@@ -10,15 +10,26 @@ The project is part of the [CS5610 Web Development](http://localhost:3000/https:
 
 Say you would like to cook something but you don't know what to cook with the ingredients available at his home. CanYouCookIt app allows you to find recipes based on the ingredients you have at home. It allows you to keep a track of the ingredients and save recipes that you find interesting. It enables search based on the ingredients you want to use.
 
-## Deliverables & Screenshots
+## Deliverables
 
-[**Design mockups & User Personas**]()
+[**Design mockups & User Personas**](https://docs.google.com/document/d/1CRxxexZEyCP16yBf4R0G67XXxpC9m1gJHOS_grpqLhQ/) (also in deliverables folder)
 
 **Deployed app**: [https://canyoucookit.onrender.com/](https://canyoucookit.onrender.com/)
 
 [**Presentation slides**](https://docs.google.com/presentation/d/1wNVPYCO64ktsuLlQKMthhD9Hebw8t92pKTkfeZH-nO0/edit#slide=id.g17bd83520d7_1_155)
 
-[**Video Walkthough**]()
+[**Video Walkthrough**]()
+
+## Screenshots
+
+[](./deliverables/inventory-page.png)
+
+[](./deliverables/search-results.png)
+
+[](./deliverables/create-new-recipe.png)
+
+[](./deliverables/my-recipes-page.png)
+
 
 ## Milestones
 
