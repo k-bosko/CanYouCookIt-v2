@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import OptionsList from "../components/ingredients/OptionsList.jsx";
 import IngredientsTable from "../components/ingredients/IngredientsTable.jsx";
+import Pagination from "../components/Pagination";
 
 InventoryPage.propTypes = {
   setShowSearch: PropTypes.func,
@@ -17,11 +18,23 @@ export default function InventoryPage(props) {
   const [btnEnabled, setBtnEnabled] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [checkedState, setCheckedState] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(10);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const nPages = 10;
 
   useEffect(() => {
     async function getMyIngredientsInventory() {
       try {
-        const response = await fetch("/api/myinventory/");
+        const response = await fetch(
+          "/api/myinventory/" +
+            indexOfFirstRecord +
+            "/" +
+            indexOfLastRecord +
+            "/"
+        );
 
         if (response.ok) {
           const ingredientsJson = await response.json();
@@ -193,6 +206,11 @@ export default function InventoryPage(props) {
             checkedState={checkedState}
           />
         </div>
+        <Pagination
+          nPages={nPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );

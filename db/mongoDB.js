@@ -195,10 +195,10 @@ function MongoModule() {
 
   /* ------Anshul start----- */
   //  works
-  async function getInventory(userId) {
+  async function getInventory(userId, indexOfFirstRecord, indexOfLastRecord) {
     console.log("getInventory userId", userId);
     let client;
-
+    const nPerPage = 5;
     try {
       client = new MongoClient(url, MONGO_DEFAULTS);
       await client.connect();
@@ -206,8 +206,12 @@ function MongoModule() {
 
       const mongo = client.db(DB_NAME);
       const inventoryCollection = mongo.collection(USER_INVENTORY);
-      let query = { userId: userId };
-      const inventory = await inventoryCollection.find(query).toArray();
+      let query = { userId: userId, id: { $lt: indexOfFirstRecord } };
+      const inventory = await inventoryCollection
+        .find(query)
+        .sort({ id: -1 })
+        .limit(nPerPage)
+        .toArray();
 
       console.log("inventory", inventory);
       return inventory;
@@ -234,8 +238,7 @@ function MongoModule() {
       if (!checkIngredient) {
         const result = await inventoryCollection.insertOne(ingredient);
         return result;
-      }
-      else {
+      } else {
         return checkIngredient;
       }
     } finally {
