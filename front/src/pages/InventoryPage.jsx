@@ -20,12 +20,11 @@ export default function InventoryPage(props) {
   const [checkedState, setCheckedState] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState(0);
-  const [recordsPerPage, setRecordsPerPage] = useState(3);
+  const [recordsPerPage] = useState(3);
 
   useEffect(() => {
     async function getMyIngredientsInventoryCount() {
       try {
-        console.log(currentPage);
         const response = await fetch("/api/myinventory/count");
 
         if (response.ok) {
