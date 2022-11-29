@@ -172,7 +172,7 @@ export default function InventoryPage(props) {
       <h1>Inventory</h1>
       <div>
         <h2 className="mb-4">Add Ingredient</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <div className="row">
             <div className="col-6">
               <input

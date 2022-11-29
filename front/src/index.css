@@ -4,7 +4,7 @@ h1 {
   margin-bottom: 3rem;
 }
 
-p {
+li, p {
   font-size: larger;
   text-align: justify;
   font-family: "Raleway";

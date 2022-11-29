@@ -31,7 +31,7 @@ function SearchRecipesPage(props) {
       }
     }
     fetchData();
-  }, []);
+  }, [ingredientsForSearch]);
 
   return (
     <div className="container">

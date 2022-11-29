@@ -31,15 +31,15 @@ function CreateRecipe(props) {
   }
 
   function removeInputFields(idx) {
-    const rows = [...inputFields];
-    rows.splice(idx, 1);
-    setInputFields(rows);
+    if (inputFields.length > 1) {
+      const rows = [...inputFields];
+      rows.splice(idx, 1);
+      setInputFields(rows);
+    }
   }
 
   async function addNewToMyRecipes(newRecipe) {
-    newRecipe.instructions = newRecipe.instructions
-      ? newRecipe.instructions
-      : "No instructions provided.";
+    console.log("got instructions", newRecipe);
 
     console.log("addNewToMyRecipes id", newRecipe.id);
     try {
@@ -60,13 +60,13 @@ function CreateRecipe(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("event", event);
     const eventData = [...event.target];
     const title = eventData.filter((formElem) => formElem.id === "title")[0]
       .value;
     const instructions = eventData.filter(
       (formElem) => formElem.id === "instructions"
     )[0].value;
+
     const imageFile = eventData.filter(
       (formElem) => formElem.id === "imageFile"
     )[0].files[0];
@@ -76,10 +76,6 @@ function CreateRecipe(props) {
         return { id: uuidv4(), original: ingrData.value };
       });
 
-    console.log(
-      "imageFile",
-      eventData.filter((formElem) => formElem.id === "imageFile")
-    );
     const response = await handleFile(imageFile);
     const imageUrl = response ? response.fileUrl : "/images/new-recipe.png";
 
@@ -88,8 +84,7 @@ function CreateRecipe(props) {
       title: title,
       image: imageUrl,
       extendedIngredients: extendedIngredients,
-      instructions:
-        instructions === "" ? instructions.value : "No instructions provided",
+      instructions: instructions ? instructions : "No instructions provided",
     };
     handleClose();
     addNewToMyRecipes(newRecipe);
@@ -163,7 +158,6 @@ function CreateRecipe(props) {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Ingredients:</Form.Label>
-              {/* <Form.Control as="textarea" rows={1} /> */}
               {inputFields.map((data, idx) => {
                 return (
                   <Form.Control
