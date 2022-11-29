@@ -22,13 +22,13 @@ Say you would like to cook something but you don't know what to cook with the in
 
 ## Screenshots
 
-[](./deliverables/inventory-page.png)
+![Inventory Page](https://github.com/Anchellon/CanYouCookIt/blob/main/deliverables/inventory-page.png)
 
-[](./deliverables/search-results.png)
+![Search Results](https://github.com/Anchellon/CanYouCookIt/blob/main/deliverables/search-results.png)
 
-[](./deliverables/create-new-recipe.png)
+![Create New Recipe](https://github.com/Anchellon/CanYouCookIt/blob/main/deliverables/create-new-recipe.png)
 
-[](./deliverables/my-recipes-page.png)
+![My Recipes Page](https://github.com/Anchellon/CanYouCookIt/blob/main/deliverables/my-recipes-page.png)
 
 
 ## Milestones
