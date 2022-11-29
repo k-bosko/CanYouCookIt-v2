@@ -8,6 +8,7 @@ function MongoModule() {
   const COLLECTION_MYRECIPES = "myrecipes";
   const USER_INVENTORY = "inventory";
   const INGREDIENTS_COLLECTION = "ingredients";
+  const AUTO_INC = "auto-increments";
 
   const MONGO_DEFAULTS = {
     useNewUrlParser: true,
@@ -227,13 +228,28 @@ function MongoModule() {
       console.log("Connected to Mongo Server");
 
       const mongo = client.db(DB_NAME);
-      const inventoryCollection = mongo.collection(USER_INVENTORY);
-      let ret = await inventoryCollection.findOneAndUpdate(
+      const autoIncCollection = mongo.collection(AUTO_INC);
+      let ret = await autoIncCollection.findOneAndUpdate(
         { _id: name },
         // increment it's property called "ran" by 1
         { $inc: { seq: 1 } }
       );
       return ret.value.seq;
+    } finally {
+      await client.close();
+    }
+  }
+  async function getInventoryCount() {
+    let client;
+    try {
+      client = new MongoClient(url);
+      await client.connect();
+      console.log("Connected to Mongo Server");
+
+      const mongo = client.db(DB_NAME);
+      const inventoryCollection = mongo.collection(USER_INVENTORY);
+      let count = await inventoryCollection.countDocuments();
+      return count;
     } finally {
       await client.close();
     }
@@ -329,6 +345,7 @@ function MongoModule() {
   db.getInventory = getInventory;
   db.addToInventory = addToInventory;
   db.deleteItem = deleteItem;
+  db.getInventoryCount = getInventoryCount;
   /* ------Anshul end----- */
 
   return db;

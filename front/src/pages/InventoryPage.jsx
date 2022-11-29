@@ -19,9 +19,27 @@ export default function InventoryPage(props) {
   const [ingredients, setIngredients] = useState([]);
   const [checkedState, setCheckedState] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  // const [recordsPerPage] = useState(3);
-  const nPages = 10;
+  const [count, setCount] = useState(0);
+  const [recordsPerPage, setRecordsPerPage] = useState(3);
 
+  useEffect(() => {
+    async function getMyIngredientsInventoryCount() {
+      try {
+        console.log(currentPage);
+        const response = await fetch("/api/myinventory/count");
+
+        if (response.ok) {
+          const { count } = await response.json();
+          setCount(count);
+        } else {
+          console.error("Error in fetch api/myinventory/count");
+        }
+      } catch (e) {
+        console.log({ error: e });
+      }
+    }
+    getMyIngredientsInventoryCount();
+  }, []);
   useEffect(() => {
     async function getMyIngredientsInventory() {
       try {
@@ -87,6 +105,7 @@ export default function InventoryPage(props) {
         delete updatedData[itemName];
         return updatedData;
       });
+      setCount(count - 1);
     });
   };
 
@@ -157,25 +176,24 @@ export default function InventoryPage(props) {
         <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-6">
-              <form autocomplete="off">
-                <input
-                  className="form-control mb-3"
-                  list="possible-ingredients"
-                  name="item"
-                  id="item"
-                  onChange={handleChange}
-                  value={formData.item}
-                  required
-                  placeholder="Enter ingredient"
-                />
-                <OptionsList
-                  setIngredient={setIngredient}
-                  setFormData={setFormData}
-                  setOptions={setOptions}
-                  setBtnEnabled={setBtnEnabled}
-                  options={options}
-                />
-              </form>
+              <input
+                className="form-control mb-3"
+                list="possible-ingredients"
+                name="item"
+                id="item"
+                onChange={handleChange}
+                value={formData.item}
+                required
+                placeholder="Enter ingredient"
+                autoComplete="off"
+              />
+              <OptionsList
+                setIngredient={setIngredient}
+                setFormData={setFormData}
+                setOptions={setOptions}
+                setBtnEnabled={setBtnEnabled}
+                options={options}
+              />
             </div>
             <div className="col-2">
               <button
@@ -199,7 +217,7 @@ export default function InventoryPage(props) {
           />
         </div>
         <Pagination
-          nPages={nPages}
+          nPages={Math.ceil(count / recordsPerPage)}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
