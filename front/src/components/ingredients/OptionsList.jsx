@@ -1,25 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./OptionsList.css";
 
 export default function OptionsList(props) {
-  let element = {
-    display: "inline-block",
-    "margin-top": "-12px",
-    "margin-bottom": "-12px",
-  };
-  let elementStyle = {
-    position: "absolute",
-    width: "inherit",
-    padding: "0px",
-  };
   return (
-    <ul id="possible-ingredients" style={elementStyle}>
+    <ul id="possible-ingredients" className="custom-dropdown">
       {props.options.map((ingredient) => (
         <div>
           <span
             key={ingredient.id}
-            className="dropdown-content"
-            style={element}
+            className="dropdown-content dropdown-elem"
             onClick={() => {
               props.setIngredient(ingredient);
               props.setFormData({ item: ingredient.name });

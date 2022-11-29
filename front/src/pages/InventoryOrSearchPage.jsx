@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import BasePage from "./BasePage.jsx";
 import SearchRecipesPage from "./SearchRecipesPage.jsx";
-// import InventoryPage from "./InventoryPage.jsx";
 import InventoryPage from "./InventoryPage.jsx";
 
 export default function InventoryOrSearchPage() {
