@@ -229,7 +229,7 @@ function MongoModule() {
       const mongo = client.db(DB_NAME);
       const inventoryCollection = mongo.collection(USER_INVENTORY);
       let ret = await inventoryCollection.findOneAndUpdate(
-        { _id: "userid" },
+        { _id: name },
         // increment it's property called "ran" by 1
         { $inc: { seq: 1 } }
       );
