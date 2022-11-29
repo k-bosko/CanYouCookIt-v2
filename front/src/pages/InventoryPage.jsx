@@ -18,11 +18,8 @@ export default function InventoryPage(props) {
   const [btnEnabled, setBtnEnabled] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [checkedState, setCheckedState] = useState({});
-  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(10);
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  // const [recordsPerPage] = useState(3);
   const nPages = 10;
 
   useEffect(() => {
@@ -192,7 +189,7 @@ export default function InventoryPage(props) {
           </div>
         </form>
         <div>
-          <h2>My Ingredients</h2>
+          <h2 id="myIngredients">My Ingredients</h2>
           <IngredientsTable
             deleteItem={deleteItem}
             ingredients={ingredients}
