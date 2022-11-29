@@ -259,20 +259,17 @@ router.get("/api/ingredients", async function (req, res) {
   res.status(200).json(retrievedIngredients);
 });
 
-router.get(
-  "/api/myinventory/:indexOfFirstRecord/:indexOfLastRecord",
-  async function (req, res) {
-    const userId = req.user.userId;
-    const indexOfFirstRecord = req.params.indexOfFirstRecord;
-    const indexOfLastRecord = req.params.indexOfLastRecord;
-    const retrievedInventory = await mongo.getInventory(
-      userId,
-      indexOfFirstRecord,
-      indexOfLastRecord
-    );
-    res.status(200).json(retrievedInventory);
-  }
-);
+router.get("/api/myinventory", async function (req, res) {
+  const userId = req.user.userId;
+  const page = req.query.p;
+  const ingredientsPerPage = 3;
+  const retrievedInventory = await mongo.getInventory(
+    userId,
+    page,
+    ingredientsPerPage
+  );
+  res.status(200).json(retrievedInventory);
+});
 
 router.post("/api/myinventory/add", async (req, res) => {
   const userId = req.user.userId;

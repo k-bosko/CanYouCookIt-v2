@@ -28,13 +28,8 @@ export default function InventoryPage(props) {
   useEffect(() => {
     async function getMyIngredientsInventory() {
       try {
-        const response = await fetch(
-          "/api/myinventory/" +
-            indexOfFirstRecord +
-            "/" +
-            indexOfLastRecord +
-            "/"
-        );
+        console.log(currentPage);
+        const response = await fetch("/api/myinventory/?p=" + currentPage);
 
         if (response.ok) {
           const ingredientsJson = await response.json();
@@ -54,7 +49,7 @@ export default function InventoryPage(props) {
       }
     }
     getMyIngredientsInventory();
-  }, []);
+  }, [currentPage]);
 
   const createChecksDictionary = (ingredientJson) => {
     let d = {};

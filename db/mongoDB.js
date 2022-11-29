@@ -195,10 +195,10 @@ function MongoModule() {
 
   /* ------Anshul start----- */
   //  works
-  async function getInventory(userId, indexOfFirstRecord, indexOfLastRecord) {
+  async function getInventory(userId, page, booksPerPage) {
     console.log("getInventory userId", userId);
     let client;
-    const nPerPage = 5;
+
     try {
       client = new MongoClient(url, MONGO_DEFAULTS);
       await client.connect();
@@ -206,11 +206,11 @@ function MongoModule() {
 
       const mongo = client.db(DB_NAME);
       const inventoryCollection = mongo.collection(USER_INVENTORY);
-      let query = { userId: userId, id: { $lt: indexOfFirstRecord } };
       const inventory = await inventoryCollection
-        .find(query)
+        .find()
         .sort({ id: -1 })
-        .limit(nPerPage)
+        .skip((page - 1) * booksPerPage)
+        .limit(booksPerPage)
         .toArray();
 
       console.log("inventory", inventory);
@@ -219,7 +219,25 @@ function MongoModule() {
       await client.close();
     }
   }
+  async function getNextSequence(name) {
+    let client;
+    try {
+      client = new MongoClient(url);
+      await client.connect();
+      console.log("Connected to Mongo Server");
 
+      const mongo = client.db(DB_NAME);
+      const inventoryCollection = mongo.collection(USER_INVENTORY);
+      let ret = await inventoryCollection.findOneAndUpdate(
+        { _id: "userid" },
+        // increment it's property called "ran" by 1
+        { $inc: { seq: 1 } }
+      );
+      return ret.value.seq;
+    } finally {
+      await client.close();
+    }
+  }
   async function addToInventory(ingredient) {
     let client;
 
@@ -236,6 +254,11 @@ function MongoModule() {
       };
       const checkIngredient = await inventoryCollection.findOne(query);
       if (!checkIngredient) {
+        let temp = await getNextSequence("userid");
+        ingredient = {
+          ...ingredient,
+          _id: temp,
+        };
         const result = await inventoryCollection.insertOne(ingredient);
         return result;
       } else {
