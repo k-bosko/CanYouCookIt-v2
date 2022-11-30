@@ -267,11 +267,10 @@ router.get("/api/myinventory/count", async function (req, res) {
 router.get("/api/myinventory", async function (req, res) {
   const userId = req.user.userId;
   const page = req.query.p;
-  const ingredientsPerPage = 3;
+
   const retrievedInventory = await mongo.getInventory(
     userId,
-    page,
-    ingredientsPerPage
+    page
   );
   res.status(200).json(retrievedInventory);
 });

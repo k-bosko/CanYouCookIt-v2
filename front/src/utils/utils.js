@@ -16,4 +16,6 @@ function removeHtmlTags(str) {
   return str.replace(/<\/?[^>]+(>|$)/g, "");
 }
 
-export { getUnique, removeHtmlTags };
+const INGREDIENTS_PER_PAGE = 3;
+
+export { getUnique, removeHtmlTags, INGREDIENTS_PER_PAGE };

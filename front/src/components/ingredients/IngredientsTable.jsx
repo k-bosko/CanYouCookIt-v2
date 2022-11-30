@@ -29,14 +29,16 @@ export default function IngredientsTable(props) {
         </thead>
         <tbody>
           {props.ingredients &&
-            props.ingredients.map((ingredient) => (
-              <Ingredient
-                key={ingredient.id}
-                ingredient={ingredient}
-                handleClick={props.deleteItem}
-                handleCheckedChange={props.handleCheckedChange}
-              />
-            ))}
+            props.ingredients
+              .sort((r1, r2) => r2.timestamp - r1.timestamp)
+              .map((ingredient) => (
+                <Ingredient
+                  key={ingredient.id}
+                  ingredient={ingredient}
+                  handleClick={props.deleteItem}
+                  handleCheckedChange={props.handleCheckedChange}
+                />
+              ))}
         </tbody>
       </table>
       <button onClick={props.handleSearchSubmit} className="btn btn-success">

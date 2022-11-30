@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import OptionsList from "../components/ingredients/OptionsList.jsx";
 import IngredientsTable from "../components/ingredients/IngredientsTable.jsx";
-import Pagination from "../components/Pagination";
+import Pagination from "./Pagination";
+import { INGREDIENTS_PER_PAGE } from "../utils/utils.js";
 
 InventoryPage.propTypes = {
   setShowSearch: PropTypes.func,
@@ -20,7 +21,6 @@ export default function InventoryPage(props) {
   const [checkedState, setCheckedState] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState(0);
-  const [recordsPerPage] = useState(3);
 
   useEffect(() => {
     async function getMyIngredientsInventoryCount() {
@@ -39,10 +39,11 @@ export default function InventoryPage(props) {
     }
     getMyIngredientsInventoryCount();
   }, []);
+
   useEffect(() => {
     async function getMyIngredientsInventory() {
       try {
-        console.log(currentPage);
+        console.log("currentPage", currentPage);
         const response = await fetch("/api/myinventory/?p=" + currentPage);
 
         if (response.ok) {
@@ -54,7 +55,7 @@ export default function InventoryPage(props) {
           });
           setCheckedState(dict);
           console.log("ingredientsJson", ingredientsJson);
-          setIngredients(ingredientsJson);
+          setIngredients([...ingredientsJson]);
         } else {
           console.error("Error in fetch api/myinventory/");
         }
@@ -87,26 +88,28 @@ export default function InventoryPage(props) {
       return updatedObj;
     });
   };
-  const deleteItem = async (itemId, itemName) => {
-    await fetch("api/myinventory/delete/" + itemId, {
+
+  async function deleteItem(itemId, itemName) {
+    const deleteResponse = await fetch("api/myinventory/delete/" + itemId, {
       method: "DELETE",
-    }).then(() => {
-      setIngredients((prevList) => {
-        let updatedList = prevList.filter(
-          (ingredient) => ingredient.id !== itemId
-        );
-        return updatedList;
-      });
-      setCheckedState((prevData) => {
-        let updatedData = {
-          ...prevData,
-        };
-        delete updatedData[itemName];
-        return updatedData;
-      });
-      setCount(count - 1);
     });
-  };
+    if (deleteResponse.ok) {
+      const getResponse = await fetch("/api/myinventory/?p=" + currentPage);
+      if (getResponse.ok) {
+        const ingredientsJson = await getResponse.json();
+        setIngredients([...ingredientsJson]);
+      }
+    }
+
+    setCheckedState((prevData) => {
+      let updatedData = {
+        ...prevData,
+      };
+      delete updatedData[itemName];
+      return updatedData;
+    });
+    setCount(count - 1);
+  }
 
   async function handleChange(event) {
     setFormData((prevFormData) => {
@@ -140,15 +143,25 @@ export default function InventoryPage(props) {
     });
     if (responseAddItem.ok) {
       console.log("successfully added item to Inventory collection");
+      return true;
     } else {
       console.error("Error in fetch /api/myinventory/add");
+      return false;
     }
   }
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await addItem(ingredient);
-    setIngredients((prevIngred) => [...prevIngred, ingredient]);
+    const addItemResponse = await addItem(ingredient);
+    if (addItemResponse) {
+      const getResponse = await fetch("/api/myinventory/?p=" + currentPage);
+      if (getResponse.ok) {
+        const ingredientsJson = await getResponse.json();
+        console.log("got ingredientsJson", ingredientsJson);
+        setIngredients([...ingredientsJson]);
+        setCount(count + 1);
+      }
+    }
     setFormData({
       item: "",
     });
@@ -216,7 +229,7 @@ export default function InventoryPage(props) {
           />
         </div>
         <Pagination
-          nPages={Math.ceil(count / recordsPerPage)}
+          nPages={Math.ceil(count / INGREDIENTS_PER_PAGE)}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />

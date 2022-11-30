@@ -1,4 +1,5 @@
 import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
+import { INGREDIENTS_PER_PAGE } from "../front/src/utils/utils.js";
 
 function MongoModule() {
   const db = {};
@@ -196,7 +197,7 @@ function MongoModule() {
 
   /* ------Anshul start----- */
   //  works
-  async function getInventory(userId, page, booksPerPage) {
+  async function getInventory(userId, page) {
     console.log("getInventory userId", userId);
     let client;
 
@@ -207,11 +208,12 @@ function MongoModule() {
 
       const mongo = client.db(DB_NAME);
       const inventoryCollection = mongo.collection(USER_INVENTORY);
+
       const inventory = await inventoryCollection
         .find()
-        .sort({ id: -1 })
-        .skip((page - 1) * booksPerPage)
-        .limit(booksPerPage)
+        .sort({ timestamp: -1 })
+        .skip((page - 1) * INGREDIENTS_PER_PAGE)
+        .limit(INGREDIENTS_PER_PAGE)
         .toArray();
 
       console.log("inventory", inventory);
@@ -220,25 +222,7 @@ function MongoModule() {
       await client.close();
     }
   }
-  async function getNextSequence(name) {
-    let client;
-    try {
-      client = new MongoClient(url);
-      await client.connect();
-      console.log("Connected to Mongo Server");
 
-      const mongo = client.db(DB_NAME);
-      const autoIncCollection = mongo.collection(AUTO_INC);
-      let ret = await autoIncCollection.findOneAndUpdate(
-        { _id: name },
-        // increment it's property called "ran" by 1
-        { $inc: { seq: 1 } }
-      );
-      return ret.value.seq;
-    } finally {
-      await client.close();
-    }
-  }
   async function getInventoryCount() {
     let client;
     try {
@@ -270,11 +254,7 @@ function MongoModule() {
       };
       const checkIngredient = await inventoryCollection.findOne(query);
       if (!checkIngredient) {
-        let temp = await getNextSequence("userid");
-        ingredient = {
-          ...ingredient,
-          _id: temp,
-        };
+        ingredient.timestamp = Date.now();
         const result = await inventoryCollection.insertOne(ingredient);
         return result;
       } else {
