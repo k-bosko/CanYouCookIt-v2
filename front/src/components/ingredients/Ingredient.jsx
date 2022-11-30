@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import "./Ingredient.css";
 
 export default function Ingredient(props) {
-
-
   return (
     <tr>
       <td>
@@ -19,12 +17,14 @@ export default function Ingredient(props) {
         <div className="py-5 px-2">{props.ingredient.name}</div>
       </td>
       <td>
+        {console.log("checkedstate of ingredient", props.checkedState[props.ingredient.name])}
         <div className="py-5 px-4">
           <input
             type="checkbox"
             id="flexCheckDefault"
             name={props.ingredient.name}
             onChange={props.handleCheckedChange}
+            defaultChecked={props.checkedState[props.ingredient.name]}
           />
         </div>
       </td>

@@ -48,12 +48,6 @@ export default function InventoryPage(props) {
 
         if (response.ok) {
           const ingredientsJson = await response.json();
-          let dict;
-          setIngredients(() => {
-            dict = createChecksDictionary(ingredientsJson);
-            return ingredientsJson;
-          });
-          setCheckedState(dict);
           console.log("ingredientsJson", ingredientsJson);
           setIngredients([...ingredientsJson]);
         } else {
@@ -66,17 +60,6 @@ export default function InventoryPage(props) {
     getMyIngredientsInventory();
   }, [currentPage]);
 
-  const createChecksDictionary = (ingredientJson) => {
-    let d = {};
-    ingredientJson.forEach((element) => {
-      d = {
-        ...d,
-        [element.name]: false,
-      };
-    });
-    console.log("dictionary", d);
-    return d;
-  };
 
   const handleCheckedChange = (event) => {
     setCheckedState((prevFormData) => {

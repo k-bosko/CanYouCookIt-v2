@@ -37,6 +37,7 @@ export default function IngredientsTable(props) {
                   ingredient={ingredient}
                   handleClick={props.deleteItem}
                   handleCheckedChange={props.handleCheckedChange}
+                  checkedState={props.checkedState}
                 />
               ))}
         </tbody>
