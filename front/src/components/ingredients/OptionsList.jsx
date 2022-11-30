@@ -1,27 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Option from "./Option.jsx";
 import "./OptionsList.css";
 
 export default function OptionsList(props) {
   return (
     <ul id="possible-ingredients" className="custom-dropdown">
       {props.options.map((ingredient) => (
-        <div>
-          <span
-            key={ingredient.id}
-            className="dropdown-content dropdown-elem"
-            onClick={() => {
-              props.setIngredient(ingredient);
-              props.setFormData({ item: ingredient.name });
-              props.setOptions([]);
-              props.setBtnEnabled(true);
-            }}
-          >
-            {ingredient.name}
-          </span>
-          <br></br>
-          <br></br>
-        </div>
+        <Option
+          key={ingredient.id}
+          ingredient={ingredient}
+          setIngredient={props.setIngredient}
+          setFormData={props.setFormData}
+          setOptions={props.setOptions}
+          setBtnEnabled={props.setBtnEnabled}
+        />
       ))}
     </ul>
   );

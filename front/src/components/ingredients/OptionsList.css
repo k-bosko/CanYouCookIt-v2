@@ -1,11 +1,5 @@
 .custom-dropdown {
-  position: "absolute";
-  width: "inherit";
-  padding: "0px";
-}
-
-.dropdown-elem {
-  display: "inline-block";
-  margin-top: "-12px";
-  margin-bottom: "-12px";
+  position: absolute;
+  width: inherit;
+  padding: 0px;
 }

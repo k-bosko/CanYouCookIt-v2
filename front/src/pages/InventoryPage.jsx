@@ -218,21 +218,25 @@ export default function InventoryPage(props) {
             </div>
           </div>
         </form>
-        <div>
-          <h2 id="myIngredients">My Ingredients</h2>
-          <IngredientsTable
-            deleteItem={deleteItem}
-            ingredients={ingredients}
-            handleCheckedChange={handleCheckedChange}
-            handleSearchSubmit={handleSearchSubmit}
-            checkedState={checkedState}
-          />
-        </div>
-        <Pagination
-          nPages={Math.ceil(count / INGREDIENTS_PER_PAGE)}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        {ingredients.length !== 0 && (
+          <div>
+            <div>
+              <h2 id="myIngredients">My Ingredients</h2>
+              <IngredientsTable
+                deleteItem={deleteItem}
+                ingredients={ingredients}
+                handleCheckedChange={handleCheckedChange}
+                handleSearchSubmit={handleSearchSubmit}
+                checkedState={checkedState}
+              />
+            </div>
+            <Pagination
+              nPages={Math.ceil(count / INGREDIENTS_PER_PAGE)}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
