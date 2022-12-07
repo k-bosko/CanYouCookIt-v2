@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { getUnique } from "../../utils/utils.js";
 import RecipeDetailsElement from "./RecipeDetailsElement.jsx";
 import RecipeDetailsIngredient from "./RecipeDetailsIngredient.jsx";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./RecipeDetails.css";
 
 RecipeDetails.propTypes = {
@@ -26,31 +26,41 @@ function RecipeDetails(props) {
     props.recipe && (
       <div>
         <div>
-          <button
-            aria-label={
-              props.isMyRecipesPage
-                ? "Delete recipe"
-                : props.isAdding
-                ? "saving recipe to my collection"
-                : "add recipe to my collection"
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip>
+                {props.isMyRecipesPage
+                  ? "Delete recipe"
+                  : "Add to my recipes collection"}
+              </Tooltip>
             }
-            className={
-              props.isMyRecipesPage
-                ? "btn btn-custom btn-red"
-                : "btn btn-custom btn-green"
-            }
-            style={{ float: "right" }}
-            // onClick={() => props.deleteOrAddAction(props.recipe)}
-            onClick={handleShow}
           >
-            {props.isMyRecipesPage ? (
-              <i className="bi bi-trash3"></i>
-            ) : props.isAdding ? (
-              <i className="bi bi-cloud-arrow-down"></i>
-            ) : (
-              <i className="bi bi-plus-lg"></i>
-            )}
-          </button>
+            <button
+              aria-label={
+                props.isMyRecipesPage
+                  ? "Delete recipe"
+                  : props.isAdding
+                  ? "saving recipe to my collection"
+                  : "add recipe to my collection"
+              }
+              className={
+                props.isMyRecipesPage
+                  ? "btn btn-custom btn-red"
+                  : "btn btn-custom btn-green"
+              }
+              style={{ float: "right" }}
+              onClick={handleShow}
+            >
+              {props.isMyRecipesPage ? (
+                <i className="bi bi-trash3"></i>
+              ) : props.isAdding ? (
+                <i className="bi bi-cloud-arrow-down"></i>
+              ) : (
+                <i className="bi bi-plus-lg"></i>
+              )}
+            </button>
+          </OverlayTrigger>
           {props.isMyRecipesPage ? (
             <RecipeDetailsElement
               recipe={props.recipe}
