@@ -138,7 +138,6 @@ function CreateRecipe(props) {
         aria-labelledby="dialog1Title"
         show={show}
         onHide={handleClose}
-        backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
@@ -178,6 +177,8 @@ function CreateRecipe(props) {
                     rows={1}
                     name="ingredients"
                     id="ingredients"
+                    aria-placeholder={`enter ingredient #${idx+1}`}
+                    placeholder={`enter ingredient #${idx+1}`}
                   />
                 );
               })}
