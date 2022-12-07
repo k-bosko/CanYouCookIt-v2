@@ -80,7 +80,17 @@ export default function InventoryPage(props) {
       const getResponse = await fetch("/api/myinventory/?p=" + currentPage);
       if (getResponse.ok) {
         const ingredientsJson = await getResponse.json();
-        setIngredients([...ingredientsJson]);
+        //if deleted all ingredients from current page, need to go to previous page
+        if (ingredientsJson.length === 0 && currentPage - 1 > 0) {
+          setCurrentPage(currentPage - 1);
+          const prevPageResponse = await fetch("/api/myinventory/?p=" + currentPage);
+          if (prevPageResponse.ok) {
+            const prevPageIngedientsJson = await prevPageResponse.json();
+            setIngredients([...prevPageIngedientsJson]);
+          }
+        } else {
+          setIngredients([...ingredientsJson]);
+        }
       }
     }
 
