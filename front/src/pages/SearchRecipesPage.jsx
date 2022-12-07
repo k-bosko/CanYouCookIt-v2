@@ -35,7 +35,7 @@ function SearchRecipesPage(props) {
 
   return (
     <div className="container">
-      <h1>Search results:</h1>
+      <h1>Search results</h1>
       <Recipes recipes={recipes} setRecipes={setRecipes} />
     </div>
   );

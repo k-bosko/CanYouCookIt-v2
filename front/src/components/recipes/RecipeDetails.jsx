@@ -18,6 +18,13 @@ function RecipeDetails(props) {
     props.recipe && (
       <div>
         <button
+          aria-label={
+            props.isMyRecipesPage
+              ? "Delete recipe"
+              : props.isAdding
+              ? "saving recipe to my collection"
+              : "add recipe to my collection"
+          }
           className={
             props.isMyRecipesPage
               ? "btn btn-custom btn-red"
@@ -41,10 +48,10 @@ function RecipeDetails(props) {
             isTitle={true}
           />
         ) : (
-          <h3>{props.recipe.title}</h3>
+          <h2>{props.recipe.title}</h2>
         )}
         <hr />
-        <h3>Ingredients</h3>
+        <h2>Ingredients</h2>
         {/* Note: some ingredients returned from API call to Spoonacular return doubled
         --> need to filter with getUnique */}
         {getUnique(props.recipe.extendedIngredients, "id").map((ingr, idx) =>
@@ -61,7 +68,7 @@ function RecipeDetails(props) {
           )
         )}
         <hr />
-        <h3>Instructions</h3>
+        <h2>Instructions</h2>
         {props.isMyRecipesPage ? (
           <RecipeDetailsElement
             recipe={props.recipe}

@@ -41,11 +41,11 @@ function RecipeCard(props) {
           alt={props.recipe.title}
           className="RecipeCardImage mb-4"
         />
-        <h5 className="card-title RecipeCardTitle">
+        <p className="RecipeCardTitle">
           {props.recipe.title.length > 30
             ? props.recipe.title.substring(0, 30) + "..."
             : props.recipe.title}
-        </h5>
+        </p>
       </div>
     </div>
   );

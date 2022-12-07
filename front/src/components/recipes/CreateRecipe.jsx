@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import PropTypes from "prop-types";
 import "./CreateRecipe.css";
 
@@ -120,22 +122,32 @@ function CreateRecipe(props) {
 
   return (
     <>
-      <Button variant="btn btn-create ms-5" onClick={handleShow}>
-        {<i className="bi bi-plus-lg"></i>}
-      </Button>
+      <OverlayTrigger
+        placement="top"
+        overlay={<Tooltip>Create new recipe</Tooltip>}
+      >
+        <Button
+          aria-label="Create new recipe"
+          variant="btn btn-create ms-5"
+          onClick={handleShow}
+        >
+          {<i className="bi bi-plus-lg"></i>}
+        </Button>
+      </OverlayTrigger>
       <Modal
+        aria-labelledby="dialog1Title"
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Create New Recipe</Modal.Title>
+          <Modal.Title id="dialog1Title">Create New Recipe</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit} id="recipeForm">
             <Form.Group className="mb-3">
-              <Form.Label>
+              <Form.Label for="title">
                 Title: <span className="text-danger">*</span>
               </Form.Label>
               <Form.Control
@@ -148,7 +160,7 @@ function CreateRecipe(props) {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Image (optional):</Form.Label>
+              <Form.Label for="imageFile">Image (optional):</Form.Label>
               <Form.Control
                 type="file"
                 accept=".png, .jpg, .jpeg"
@@ -157,7 +169,7 @@ function CreateRecipe(props) {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Ingredients:</Form.Label>
+              <Form.Label for="ingredients">Ingredients:</Form.Label>
               {inputFields.map((data, idx) => {
                 return (
                   <Form.Control
@@ -165,10 +177,11 @@ function CreateRecipe(props) {
                     as="textarea"
                     rows={1}
                     name="ingredients"
+                    id="ingredients"
                   />
                 );
               })}
-              <Button
+              <Button aria-label="add ingredient field"
                 className="btn btn-custom btn-green"
                 type="button"
                 name="addInputField"
@@ -176,7 +189,7 @@ function CreateRecipe(props) {
               >
                 <i className="bi bi-plus-lg"></i>
               </Button>
-              <Button
+              <Button aria-label="remove ingredient field"
                 className="btn btn-custom btn-red"
                 type="button"
                 name="deleteInputField"
@@ -186,8 +199,8 @@ function CreateRecipe(props) {
               </Button>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Instructions:</Form.Label>
-              <Form.Control as="textarea" rows={3} id="instructions" />
+              <Form.Label for="instructions">Instructions:</Form.Label>
+              <Form.Control as="textarea" rows={3} id="instructions" name="instructions"/>
             </Form.Group>
           </Form>
         </Modal.Body>

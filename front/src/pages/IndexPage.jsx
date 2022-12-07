@@ -27,7 +27,7 @@ function IndexPage() {
                 the recipes and there are only 150 API calls for free per day.
                 If the limit is depleted, please come back next day.
               </p>
-              <h4>How to use the app:</h4>
+              <h2>How to use the app:</h2>
               <ol>
                 <li>
                   Start adding ingredients on Inventory page. To enable the
