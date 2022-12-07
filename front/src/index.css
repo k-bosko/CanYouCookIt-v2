@@ -23,7 +23,7 @@ div a {
   border: 1px solid hsl(198, 1%, 29%);
 }
 
-.btn-custom:hover {
+.btn-custom:hover, .btn-custom:focus {
   color: black;
   border-radius: 5px;
   border: 1px solid hsl(198, 1%, 29%);
@@ -33,7 +33,7 @@ div a {
   background-color: white;
 }
 
-.btn-green:hover {
+.btn-green:hover, .btn-green:focus {
   background-color: #769505;
 }
 
@@ -41,6 +41,6 @@ div a {
   background-color: white;
 }
 
-.btn-red:hover {
+.btn-red:hover, .btn-red:focus {
   background-color: #c02a01;
 }

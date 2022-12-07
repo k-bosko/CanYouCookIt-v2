@@ -8,7 +8,7 @@
   border: 1px solid hsl(198, 1%, 29%);
 }
 
-.btn-create:hover {
+.btn-create:hover, .btn-create:focus {
   color: black;
   text-align: center;
   font-size: 1.3rem;
