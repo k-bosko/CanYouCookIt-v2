@@ -8,3 +8,19 @@
   font-weight: bolder;
   text-align: center;
 }
+
+.card {
+  width: 15rem;
+  border: 1px solid lightgrey;
+}
+
+.card:hover {
+  border: 1px solid red;
+}
+
+a, a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+
