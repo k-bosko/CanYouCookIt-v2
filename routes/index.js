@@ -123,7 +123,7 @@ router.post("/api/myrecipes/add", async function (req, res) {
 
   if (recipe) {
     let getRecipeResponse = await mongo.getRecipe(recipe.id, userId);
-    console.log("getRecipeResponse", getRecipeResponse);
+    // console.log("getRecipeResponse", getRecipeResponse);
     if (getRecipeResponse === null) {
       const addRecipesResponse = await mongo.addRecipe(recipe);
       if (addRecipesResponse.acknowledged) {
@@ -247,6 +247,22 @@ router.post("/api/myrecipes/update", async function (req, res) {
   }
 });
 
+router.post("/api/myrecipes/unlink", async function (req, res) {
+  const imageUrl = req.body.imageUrl;
+  const isUserUpload =
+    imageUrl.split("/images/userUpload/").length > 1 ? true : false;
+
+  if (isUserUpload) {
+    const imagePath = __dirname + "/../front/build" + imageUrl;
+    console.log("imagePath", imagePath);
+    fs.unlinkSync(imagePath);
+    res.send(200);
+  }
+  else {
+    res.send(400);
+  }
+});
+
 /* ------Katerina end----- */
 
 /* ------Anshul start----- */
@@ -268,10 +284,7 @@ router.get("/api/myinventory", async function (req, res) {
   const userId = req.user.userId;
   const page = req.query.p;
 
-  const retrievedInventory = await mongo.getInventory(
-    userId,
-    page
-  );
+  const retrievedInventory = await mongo.getInventory(userId, page);
   res.status(200).json(retrievedInventory);
 });
 

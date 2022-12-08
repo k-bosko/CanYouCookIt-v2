@@ -100,6 +100,7 @@ function Recipes(props) {
             props.isMyRecipesPage ? deleteFromMyRecipes : addSearchedToMyRecipes
           }
           recipe={currentRecipe}
+          setCurrentRecipe={setCurrentRecipe}
           isMyRecipesPage={props.isMyRecipesPage}
           isAdding={isAdding}
         />

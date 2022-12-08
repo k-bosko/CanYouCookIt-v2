@@ -33,7 +33,7 @@ function MyRecipesPage() {
       <div className="container">
         <div className="d-flex align-content-start">
           <h1>My Recipes</h1>
-          <CreateRecipe recipes={recipes} setRecipes={setRecipes} />
+          <CreateRecipe setRecipes={setRecipes} />
         </div>
         <Recipes
           recipes={recipes}

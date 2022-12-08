@@ -14,6 +14,7 @@ RecipeDetailsElement.propTypes = {
   isTitle: PropTypes.bool,
   isIngredient: PropTypes.bool,
   isInstructions: PropTypes.bool,
+  setCurrentRecipe: PropTypes.func,
 };
 
 function RecipeDetailsElement(props) {
@@ -33,11 +34,10 @@ function RecipeDetailsElement(props) {
     : "instructions";
 
   const [toggle, setToggle] = useState(true);
-  const [updatedRecipe, setUpdatedRecipe] = useState({ ...props.recipe });
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setUpdatedRecipe((prevRecipe) => {
+    props.setCurrentRecipe((prevRecipe) => {
       if (props.isIngredient) {
         const { extendedIngredients } = prevRecipe;
         extendedIngredients[props.idx].original = value;
@@ -54,17 +54,17 @@ function RecipeDetailsElement(props) {
     props.setRecipes((prevRecipes) => {
       prevRecipes.map(
         (r) =>
-          r.id === updatedRecipe.id &&
+          r.id === props.recipe.id &&
           (props.isTitle
-            ? (r.title = updatedRecipe.title)
+            ? (r.title = props.recipe.title)
             : props.isIngredient
-            ? (r.extendedIngredients = updatedRecipe.extendedIngredients)
-            : (r.instructions = updatedRecipe.instructions))
+            ? (r.extendedIngredients = props.recipe.extendedIngredients)
+            : (r.instructions = props.recipe.instructions))
       );
       // console.log([...prevRecipes]);
       return [...prevRecipes];
     });
-    await updateRecipe(updatedRecipe);
+    await updateRecipe(props.recipe);
   }
 
   async function updateRecipe(updatedRecipe) {
@@ -112,10 +112,10 @@ function RecipeDetailsElement(props) {
           rows={props.isTitle ? 1 : props.isIngredient ? 1 : 6}
           value={
             props.isTitle
-              ? updatedRecipe.title
+              ? props.recipe.title
               : props.isIngredient
-              ? updatedRecipe.extendedIngredients[props.idx].original
-              : updatedRecipe.instructions
+              ? props.recipe.extendedIngredients[props.idx].original
+              : props.recipe.instructions
           }
           onChange={handleChange}
           name={field}
@@ -138,7 +138,7 @@ function RecipeDetailsElement(props) {
           type="button"
           onClick={(evt) => {
             evt.preventDefault();
-            setUpdatedRecipe({ ...props.recipe });
+            props.setCurrentRecipe({ ...props.recipe });
             setToggle(true);
           }}
         >
