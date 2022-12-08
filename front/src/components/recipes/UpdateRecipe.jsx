@@ -261,10 +261,9 @@ function UpdateRecipe(props) {
               <Form.Label htmlFor="ingredients">New Ingredients:</Form.Label>
               {props.recipe.extendedIngredients.map((ingredient, idx) => {
                 return (
-                  <div className="row">
+                  <div className="row" key={ingredient.id}>
                     <div className="col-10">
                       <Form.Control
-                        key={ingredient.id}
                         as="textarea"
                         rows={1}
                         name="ingredients"
@@ -276,7 +275,6 @@ function UpdateRecipe(props) {
                     </div>
                     <div className="col-1">
                       <Button
-                        key={ingredient.id}
                         aria-label="remove ingredient field"
                         className="btn btn-custom btn-red"
                         type="button"
