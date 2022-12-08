@@ -13,7 +13,7 @@ UpdateRecipe.propTypes = {
 };
 
 function UpdateRecipe(props) {
-  const [oldRecipe, _] = useState(() => {
+  const [oldRecipe] = useState(() => {
     const recipe = {
       title: props.recipe.title,
       extendedIngredients: [],
@@ -29,7 +29,7 @@ function UpdateRecipe(props) {
   const [changeUploadImage, setChangeUploadImage] = useState(false);
   //Modal
   function handleCancel() {
-    console.log(oldRecipe);
+    // console.log(oldRecipe);
     props.setCurrentRecipe((prevRecipe) => {
       prevRecipe.title = oldRecipe.title;
       prevRecipe.extendedIngredients = oldRecipe.extendedIngredients;
@@ -40,13 +40,13 @@ function UpdateRecipe(props) {
   }
 
   function handleClose() {
-    console.log(oldRecipe);
+    // console.log(oldRecipe);
     props.setShowUpdateModal(false);
     setChangeUploadImage(false);
   }
 
   function addInputField() {
-    console.log("before add", props.recipe.extendedIngredients);
+    // console.log("before add", props.recipe.extendedIngredients);
     props.setCurrentRecipe((prevRecipe) => {
       let { extendedIngredients } = prevRecipe;
       if (extendedIngredients.findIndex((e) => e.original === "") === -1) {
@@ -57,7 +57,7 @@ function UpdateRecipe(props) {
       }
       return { ...prevRecipe };
     });
-    console.log("after add", props.recipe.extendedIngredients);
+    // console.log("after add", props.recipe.extendedIngredients);
   }
 
   function removeInputFields(ingredient) {
@@ -223,9 +223,12 @@ function UpdateRecipe(props) {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit} id="recipeForm">
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="title">
-                New Title: <span className="text-danger">*</span>
+            <Form.Group className="mb-4">
+              <Form.Label htmlFor="title" >
+                <div className="modalLabel" >
+                  Title:
+                  <span className="text-danger">*</span>
+                </div>
               </Form.Label>
               <Form.Control
                 name="title"
@@ -238,11 +241,15 @@ function UpdateRecipe(props) {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="imageFile">New Image (optional):</Form.Label>
+            <Form.Group className="mb-4">
+              <Form.Label htmlFor="updateImage">
+                <div className="modalLabel" >
+                  Image (optional):
+                </div>
+              </Form.Label>
               <Form.Check
                 type="checkbox"
-                label="Update image"
+                label="updateImage"
                 value={changeUploadImage}
                 onChange={handleCheckboxChange}
                 id="checkboxUploadImage"
@@ -257,8 +264,12 @@ function UpdateRecipe(props) {
                 />
               )}
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="ingredients">New Ingredients:</Form.Label>
+            <Form.Group className="mb-4">
+              <Form.Label htmlFor="ingredients">
+                <div className="modalLabel" >
+                  Ingredients:
+                </div>
+              </Form.Label>
               {props.recipe.extendedIngredients.map((ingredient, idx) => {
                 return (
                   <div className="row" key={ingredient.id}>
@@ -267,7 +278,8 @@ function UpdateRecipe(props) {
                         as="textarea"
                         rows={1}
                         name="ingredients"
-                        id="ingredients"
+                        aria-label="ingredient"
+                        id={`ingredients-${idx}`}
                         aria-placeholder={ingredient.original}
                         value={ingredient.original}
                         onChange={(e) => handleChange(e, idx)}
@@ -297,11 +309,15 @@ function UpdateRecipe(props) {
                 <i className="bi bi-plus-lg"></i>
               </Button>
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="instructions">New Instructions:</Form.Label>
+            <Form.Group className="mb-4">
+              <Form.Label htmlFor="instructions">
+                <div className="modalLabel" >
+                  Instructions:
+                </div>
+              </Form.Label>
               <Form.Control
                 as="textarea"
-                rows={3}
+                rows={5}
                 id="instructions"
                 name="instructions"
                 onChange={handleChange}

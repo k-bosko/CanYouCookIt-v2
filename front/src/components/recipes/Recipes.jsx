@@ -72,7 +72,7 @@ function Recipes(props) {
   }
 
   return (
-    <div className="row">
+    <div className="row ms-0 me-0">
       <div className="col-6">
         <div className="row">
           {props.recipes

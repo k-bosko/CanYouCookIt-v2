@@ -26,7 +26,7 @@ function Header() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div className="collapse navbar-collapse me-3" id="navbarNavAltMarkup">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <Link className="nav-item nav-link active" to="/">
@@ -39,8 +39,13 @@ function Header() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-item nav-link" to="/recipes">
-                Recipes
+              <Link className="nav-item nav-link" to="/myrecipes">
+                MyRecipes
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-item nav-link" to="/about">
+                About
               </Link>
             </li>
           </ul>

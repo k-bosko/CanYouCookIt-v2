@@ -68,7 +68,7 @@ function RecipeDetails(props) {
             )}
           </div>
           <div className="col-1">
-            {/* update button */}
+            {/* update button in MyRecipesPage or add recipes in SearchPage*/}
             <OverlayTrigger
               placement="top"
               overlay={
@@ -88,7 +88,11 @@ function RecipeDetails(props) {
                     : "add recipe to my collection"
                 }
                 className="btn btn-custom btn-green mb-2"
-                onClick={() => setShowUpdateModal(true)}
+                onClick={
+                  props.isMyRecipesPage
+                    ? () => setShowUpdateModal(true)
+                    : () => props.deleteOrAddAction(props.recipe)
+                }
               >
                 {props.isMyRecipesPage ? (
                   <i className="bi bi-pencil-square"></i>
@@ -99,7 +103,7 @@ function RecipeDetails(props) {
                 )}
               </button>
             </OverlayTrigger>
-            {/* delete button */}
+            {/* delete button in MyRecipesPage or check MyRecipes in SearchPage*/}
             <OverlayTrigger
               placement="top"
               overlay={
@@ -114,23 +118,23 @@ function RecipeDetails(props) {
                 aria-label={
                   props.isMyRecipesPage
                     ? "Delete recipe"
-                    : props.isAdding
-                    ? "saving recipe to my collection"
-                    : "add recipe to my collection"
+                    : "Check saved recipes"
                 }
                 className={
                   props.isMyRecipesPage
                     ? "btn btn-custom btn-red"
                     : "btn btn-custom btn-green"
                 }
-                onClick={() => setShowDeleteModal(true)}
+                onClick={
+                  props.isMyRecipesPage
+                    ? () => setShowDeleteModal(true)
+                    : () => (window.location.href = "/myrecipes")
+                }
               >
                 {props.isMyRecipesPage ? (
                   <i className="bi bi-trash3"></i>
-                ) : props.isAdding ? (
-                  <i className="bi bi-cloud-arrow-down"></i>
                 ) : (
-                  <i className="bi bi-plus-lg"></i>
+                  <i className="bi bi-cart-plus"></i>
                 )}
               </button>
             </OverlayTrigger>

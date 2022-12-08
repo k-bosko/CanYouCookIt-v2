@@ -34,8 +34,8 @@ function SearchRecipesPage(props) {
   }, [ingredientsForSearch]);
 
   return (
-    <div className="container">
-      <h1>Search results</h1>
+    <div className="container ps-0 pe-0">
+        <h1>Search results</h1>
       <Recipes recipes={recipes} setRecipes={setRecipes} />
     </div>
   );

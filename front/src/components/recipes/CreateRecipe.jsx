@@ -133,11 +133,7 @@ function CreateRecipe(props) {
           {<i className="bi bi-plus-lg"></i>}
         </Button>
       </OverlayTrigger>
-      <Modal
-        aria-labelledby="dialog1Title"
-        show={show}
-        onHide={handleClose}
-      >
+      <Modal aria-labelledby="dialog1Title" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title id="dialog1Title">Create New Recipe</Modal.Title>
         </Modal.Header>
@@ -145,7 +141,9 @@ function CreateRecipe(props) {
           <Form onSubmit={handleSubmit} id="recipeForm">
             <Form.Group className="mb-3">
               <Form.Label htmlFor="title">
-                Title: <span className="text-danger">*</span>
+                <div className="modalLabel">
+                  Title: <span className="text-danger">*</span>
+                </div>
               </Form.Label>
               <Form.Control
                 name="title"
@@ -157,7 +155,9 @@ function CreateRecipe(props) {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="imageFile">Image (optional):</Form.Label>
+              <Form.Label htmlFor="imageFile">
+                <div className="modalLabel">Image (optional):</div>
+              </Form.Label>
               <Form.Control
                 type="file"
                 accept=".png, .jpg, .jpeg"
@@ -166,7 +166,9 @@ function CreateRecipe(props) {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="ingredients">Ingredients:</Form.Label>
+              <Form.Label htmlFor="ingredients">
+                <div className="modalLabel">Ingredients:</div>
+              </Form.Label>
               {inputFields.map((data, idx) => {
                 return (
                   <Form.Control
@@ -175,12 +177,13 @@ function CreateRecipe(props) {
                     rows={1}
                     name="ingredients"
                     id="ingredients"
-                    aria-placeholder={`enter ingredient #${idx+1}`}
-                    placeholder={`enter ingredient #${idx+1}`}
+                    aria-placeholder={`enter ingredient #${idx + 1}`}
+                    placeholder={`enter ingredient #${idx + 1}`}
                   />
                 );
               })}
-              <Button aria-label="add ingredient field"
+              <Button
+                aria-label="add ingredient field"
                 className="btn btn-custom btn-green"
                 type="button"
                 name="addInputField"
@@ -188,7 +191,8 @@ function CreateRecipe(props) {
               >
                 <i className="bi bi-plus-lg"></i>
               </Button>
-              <Button aria-label="remove ingredient field"
+              <Button
+                aria-label="remove ingredient field"
                 className="btn btn-custom btn-red"
                 type="button"
                 name="deleteInputField"
@@ -198,8 +202,15 @@ function CreateRecipe(props) {
               </Button>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="instructions">Instructions:</Form.Label>
-              <Form.Control as="textarea" rows={3} id="instructions" name="instructions"/>
+              <Form.Label htmlFor="instructions">
+                <div className="modalLabel">Instructions:</div>
+              </Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                id="instructions"
+                name="instructions"
+              />
             </Form.Group>
           </Form>
         </Modal.Body>

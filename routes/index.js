@@ -34,11 +34,13 @@ router.get("/inventory", function (req, res) {
   res.send(304);
 });
 
+router.get("/about", function (req, res) {
+  res.send(304);
+});
+
 /* POST recipes by ingredients */
 router.post("/api/recipes/search", async function (req, res) {
   const ingredients = req.body.ingredients;
-  // const ingredients = ["apples", "flour", "sugar"];
-
   console.log("ingredients", ingredients);
 
   if (ingredients) {

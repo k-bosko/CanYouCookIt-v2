@@ -31,15 +31,19 @@ function MyRecipesPage() {
   return (
     <BasePage>
       <div className="container">
-        <div className="d-flex align-content-start">
-          <h1>My Recipes</h1>
-          <CreateRecipe setRecipes={setRecipes} />
+        <div className="row">
+          <div className="d-flex align-content-start ps-0 pe-0">
+            <h1>My Recipes</h1>
+            <CreateRecipe setRecipes={setRecipes} />
+          </div>
         </div>
-        <Recipes
-          recipes={recipes}
-          setRecipes={setRecipes}
-          isMyRecipesPage={true}
-        />
+        <div>
+          <Recipes
+            recipes={recipes}
+            setRecipes={setRecipes}
+            isMyRecipesPage={true}
+          />
+        </div>
       </div>
     </BasePage>
   );

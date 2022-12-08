@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import IndexPage from "./pages/IndexPage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
 import MyRecipesPage from "./pages/MyRecipesPage.jsx";
 import InventoryOrSearchPage from "./pages/InventoryOrSearchPage.jsx";
 
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/recipes",
+    path: "/myrecipes",
     element: <MyRecipesPage />,
     errorElement: <ErrorPage />,
   },
@@ -25,7 +26,12 @@ const router = createBrowserRouter([
     path: "/inventory",
     element: <InventoryOrSearchPage />,
     errorElement: <ErrorPage />,
-  }
+  },
+  {
+    path: "/about",
+    element: <AboutPage />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
