@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import "./CreateRecipe.css";
 
 UpdateRecipe.propTypes = {
+  recipe: PropTypes.object,
   setRecipes: PropTypes.func,
   setShowUpdateModal: PropTypes.func,
   showUpdateModal: PropTypes.bool,
@@ -12,35 +13,61 @@ UpdateRecipe.propTypes = {
 };
 
 function UpdateRecipe(props) {
-  //   const [inputFields, setInputFields] = useState([{ ingredient: "" }]);
-  const numInputFields = props.recipe.extendedIngredients.length;
-  const initialIngredients = Array(numInputFields).fill({ ingredient: "" });
-  const [inputFields, setInputFields] = useState(initialIngredients);
+  const [oldRecipe, _] = useState(() => {
+    const recipe = {
+      title: props.recipe.title,
+      extendedIngredients: [],
+      instructions: props.recipe.instructions,
+    };
+    for (const ingr of props.recipe.extendedIngredients) {
+      recipe.extendedIngredients.push({ ...ingr });
+    }
+    return recipe;
+  });
 
+  //   console.log("oldRecipe", oldRecipe);
   const [changeUploadImage, setChangeUploadImage] = useState(false);
   //Modal
+  function handleCancel() {
+    console.log(oldRecipe);
+    props.setCurrentRecipe((prevRecipe) => {
+      prevRecipe.title = oldRecipe.title;
+      prevRecipe.extendedIngredients = oldRecipe.extendedIngredients;
+      prevRecipe.instructions = oldRecipe.instructions;
+      return { ...prevRecipe };
+    });
+    handleClose();
+  }
+
   function handleClose() {
-    setInputFields(initialIngredients);
+    console.log(oldRecipe);
     props.setShowUpdateModal(false);
     setChangeUploadImage(false);
   }
 
   function addInputField() {
-    // console.log("inside addInputField");
-    setInputFields([
-      ...inputFields,
-      {
-        ingredient: "",
-      },
-    ]);
+    console.log("before add", props.recipe.extendedIngredients);
+    props.setCurrentRecipe((prevRecipe) => {
+      let { extendedIngredients } = prevRecipe;
+      if (extendedIngredients.findIndex((e) => e.original === "") === -1) {
+        prevRecipe.extendedIngredients = [
+          ...extendedIngredients,
+          { id: uuidv4(), original: "" },
+        ];
+      }
+      return { ...prevRecipe };
+    });
+    console.log("after add", props.recipe.extendedIngredients);
   }
 
-  function removeInputFields(idx) {
-    if (inputFields.length > 1) {
-      const rows = [...inputFields];
-      rows.splice(idx, 1);
-      setInputFields(rows);
-    }
+  function removeInputFields(ingredient) {
+    props.setCurrentRecipe((prevRecipe) => {
+      const newIngredients = prevRecipe.extendedIngredients.filter(
+        (ing) => ing.id !== ingredient.id
+      );
+      prevRecipe.extendedIngredients = newIngredients;
+      return { ...prevRecipe };
+    });
   }
 
   async function updateRecipe(updatedRecipe) {
@@ -64,7 +91,7 @@ function UpdateRecipe(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const eventData = [...event.target];
-    console.log("eventData", eventData);
+    // console.log("eventData", eventData);
     const title = eventData.filter((formElem) => formElem.id === "title")[0]
       .value;
     const instructions = eventData.filter(
@@ -74,7 +101,7 @@ function UpdateRecipe(props) {
     const imageOldUrl = eventData.filter(
       (formElem) => formElem.id === "imageOldUrl"
     )[0].name;
-    console.log("imageOldUrl", imageOldUrl);
+    // console.log("imageOldUrl", imageOldUrl);
 
     let imageUrl;
     if (changeUploadImage) {
@@ -101,22 +128,25 @@ function UpdateRecipe(props) {
       image: imageUrl,
       extendedIngredients: extendedIngredients,
       instructions: instructions ? instructions : "No instructions provided",
+      timestamp: props.recipe.timestamp,
+      userId: props.recipe.userId,
     };
     handleClose();
     props.setRecipes((prevRecipes) => {
       prevRecipes.map((r) =>
         r.id === updatedRecipe.id
-          ? ((r.image = updatedRecipe.image), (r.title = updatedRecipe.title))
+          ? ((r.image = updatedRecipe.image),
+            (r.title = updatedRecipe.title),
+            (r.extendedIngredients = updatedRecipe.extendedIngredients),
+            (r.instructions = updatedRecipe.instructions))
           : r
       );
-      //   console.log("prevRecipe", [...prevRecipes]);
       return [...prevRecipes];
     });
-    props.setCurrentRecipe(updatedRecipe);
     updateRecipe(updatedRecipe);
   };
 
-  //TODO add unlinking old image when updating
+  //unlink old image when updating
   async function unlinkFile(imageUrl) {
     if (!imageUrl) {
       return;
@@ -164,24 +194,19 @@ function UpdateRecipe(props) {
     }
   }
 
-  function handleChange(event) {
-    // console.log("inside handleChange Update Recipe modal");
+  function handleChange(event, idx) {
     const { name, value } = event.target;
     props.setCurrentRecipe((prevRecipe) => {
       if (name === "ingredients") {
-        console.log("will be updating ingredients");
-        console.log(prevRecipe.extendedIngredients);
-        // prevRecipe.extendedIngredients.map(
-        //   (ingr, idx) =>
-        //     ingr === prevRecipe.extendedIngredients[idx] && console.log(ingr)
-        // );
-        // prevRecipe.extendedIngredients[props.idx].original = value;
+        const { extendedIngredients } = prevRecipe;
+        extendedIngredients[idx].original = value;
         return { ...prevRecipe };
       } else {
         return { ...prevRecipe, [name]: value };
       }
     });
   }
+
   function handleCheckboxChange(event) {
     setChangeUploadImage((prev) => !prev);
   }
@@ -191,7 +216,7 @@ function UpdateRecipe(props) {
       <Modal
         aria-labelledby="dialog1Title"
         show={props.showUpdateModal}
-        onHide={handleClose}
+        onHide={handleCancel}
       >
         <Modal.Header closeButton>
           <Modal.Title id="dialog1Title">Update Recipe</Modal.Title>
@@ -234,24 +259,34 @@ function UpdateRecipe(props) {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="ingredients">New Ingredients:</Form.Label>
-              {inputFields.map((data, idx) => {
+              {props.recipe.extendedIngredients.map((ingredient, idx) => {
                 return (
-                  <Form.Control
-                    key={idx}
-                    as="textarea"
-                    rows={1}
-                    name="ingredients"
-                    id="ingredients"
-                    aria-placeholder={
-                      props.recipe.extendedIngredients.length > 0 &&
-                      props.recipe.extendedIngredients[idx].original
-                    }
-                    value={
-                      props.recipe.extendedIngredients.length > 0 &&
-                      props.recipe.extendedIngredients[idx].original
-                    }
-                    onChange={handleChange}
-                  />
+                  <div className="row">
+                    <div className="col-10">
+                      <Form.Control
+                        key={ingredient.id}
+                        as="textarea"
+                        rows={1}
+                        name="ingredients"
+                        id="ingredients"
+                        aria-placeholder={ingredient.original}
+                        value={ingredient.original}
+                        onChange={(e) => handleChange(e, idx)}
+                      />
+                    </div>
+                    <div className="col-1">
+                      <Button
+                        key={ingredient.id}
+                        aria-label="remove ingredient field"
+                        className="btn btn-custom btn-red"
+                        type="button"
+                        name="deleteInputField"
+                        onClick={() => removeInputFields(ingredient)}
+                      >
+                        <i className="bi bi-x-lg"></i>
+                      </Button>
+                    </div>
+                  </div>
                 );
               })}
               <Button
@@ -262,15 +297,6 @@ function UpdateRecipe(props) {
                 onClick={addInputField}
               >
                 <i className="bi bi-plus-lg"></i>
-              </Button>
-              <Button
-                aria-label="remove ingredient field"
-                className="btn btn-custom btn-red"
-                type="button"
-                name="deleteInputField"
-                onClick={removeInputFields}
-              >
-                <i className="bi bi-x-lg"></i>
               </Button>
             </Form.Group>
             <Form.Group className="mb-3">
@@ -299,7 +325,7 @@ function UpdateRecipe(props) {
           <Button
             variant="btn btn-custom btn-red"
             type="button"
-            onClick={handleClose}
+            onClick={handleCancel}
           >
             Cancel
           </Button>

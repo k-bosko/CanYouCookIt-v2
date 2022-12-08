@@ -171,43 +171,13 @@ function RecipeDetails(props) {
         </>
         {/* update modal */}
         <UpdateRecipe
+          key={props.recipe.id}
           recipe={props.recipe}
           showUpdateModal={showUpdateModal}
           setShowUpdateModal={setShowUpdateModal}
           setRecipes={props.setRecipes}
           setCurrentRecipe={props.setCurrentRecipe}
         />
-        {/* <>
-          <Modal
-            aria-labelledby="ConfirmDeleteTitle"
-            show={showUpdateModal}
-            onHide={() => setShowUpdateModal(false)}
-            keyboard={false}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="UpdateRecipeTitle">Update Recipe</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p>TODO</p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                variant="btn btn-custom btn-green"
-                type="button"
-                // onClick={() => props.deleteOrAddAction(props.recipe)}
-              >
-                Delete
-              </Button>
-              <Button
-                variant="btn btn-custom btn-red"
-                type="button"
-                onClick={() => setShowUpdateModal(false)}
-              >
-                Cancel
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </> */}
       </div>
     )
   );
