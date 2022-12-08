@@ -26,7 +26,7 @@ function RecipeCard(props) {
         <div className="card-body">
           <img
             src={props.recipe.image}
-            alt={props.recipe.title}
+            alt="prepared recipe"
             className="RecipeCardImage mb-4"
           />
           <p className="RecipeCardTitle">
