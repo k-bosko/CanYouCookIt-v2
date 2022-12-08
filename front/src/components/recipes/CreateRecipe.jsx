@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import "./CreateRecipe.css";
 
 CreateRecipe.propTypes = {
-  recipes: PropTypes.array,
   setRecipes: PropTypes.func,
 };
 
@@ -90,7 +89,7 @@ function CreateRecipe(props) {
     };
     handleClose();
     addNewToMyRecipes(newRecipe);
-    props.setRecipes([...props.recipes, newRecipe]);
+    props.setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);
   };
 
   async function handleFile(file) {
@@ -138,7 +137,6 @@ function CreateRecipe(props) {
         aria-labelledby="dialog1Title"
         show={show}
         onHide={handleClose}
-        keyboard={false}
       >
         <Modal.Header closeButton>
           <Modal.Title id="dialog1Title">Create New Recipe</Modal.Title>
@@ -146,7 +144,7 @@ function CreateRecipe(props) {
         <Modal.Body>
           <Form onSubmit={handleSubmit} id="recipeForm">
             <Form.Group className="mb-3">
-              <Form.Label for="title">
+              <Form.Label htmlFor="title">
                 Title: <span className="text-danger">*</span>
               </Form.Label>
               <Form.Control
@@ -159,7 +157,7 @@ function CreateRecipe(props) {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label for="imageFile">Image (optional):</Form.Label>
+              <Form.Label htmlFor="imageFile">Image (optional):</Form.Label>
               <Form.Control
                 type="file"
                 accept=".png, .jpg, .jpeg"
@@ -168,7 +166,7 @@ function CreateRecipe(props) {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label for="ingredients">Ingredients:</Form.Label>
+              <Form.Label htmlFor="ingredients">Ingredients:</Form.Label>
               {inputFields.map((data, idx) => {
                 return (
                   <Form.Control
@@ -200,7 +198,7 @@ function CreateRecipe(props) {
               </Button>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label for="instructions">Instructions:</Form.Label>
+              <Form.Label htmlFor="instructions">Instructions:</Form.Label>
               <Form.Control as="textarea" rows={3} id="instructions" name="instructions"/>
             </Form.Group>
           </Form>
