@@ -14,40 +14,40 @@ Say you would like to cook something but you don't know what to cook with the in
 
 ## Deliverables
 
-[**Usability Report**](https://docs.google.com/document/d/1ThoJQnZJ5ll2eEVFgHruJ-CFfHQowG134fEzcR19KhM/edit#)
+[**Usability Report**](https://docs.google.com/document/d/1ThoJQnZJ5ll2eEVFgHruJ-CFfHQowG134fEzcR19KhM/edit#)(also in deliverables folder)
 
-[**Design mockups & User Personas**](https://docs.google.com/document/d/1CRxxexZEyCP16yBf4R0G67XXxpC9m1gJHOS_grpqLhQ/) (also in deliverables folder)
+[**Design mockups & User Personas**](https://docs.google.com/document/d/1CRxxexZEyCP16yBf4R0G67XXxpC9m1gJHOS_grpqLhQ/) (also in deliverables/v1 folder)
 
 [**Deployed app**](https://canyoucookit.onrender.com/)
 
-[**Presentation slides**](https://docs.google.com/presentation/d/16QrTi0ZzCHL-F4oSqd8V9Q6LkrJpMMOsRDTtxmA4UsI)
+[**Presentation slides**](https://docs.google.com/presentation/d/16QrTi0ZzCHL-F4oSqd8V9Q6LkrJpMMOsRDTtxmA4UsI) (also in deliverables folder)
 
 [**Video Walkthrough**](https://www.youtube.com/watch?v=sC2YmiDTYjw)
 
 ## Screenshots
 Homepage
 
-<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/homepage.png width=700 >
+<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/screenshots/homepage.png width=700 >
 
 Inventory page
 
-<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/inventory-page.png width=700 >
+<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/screenshots/inventory-page.png width=700 >
 
 Search Results page
 
-<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/search-results.png width=700 >
+<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/screenshots/search-results.png width=700 >
 
 Create New Recipe
 
-<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/create-recipe.png  width=700 >
+<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/screenshots/create-recipe.png  width=700 >
 
 My Recipes Page
 
-<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/myrecipes-page.png  width=700 >
+<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/screenshots/myrecipes-page.png  width=700 >
 
 Update Recipe Page
 
-<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/update-recipe.png  width=700 >
+<img src=https://github.com/k-bosko/CanYouCookIt-v2/blob/main/deliverables/screenshots/update-recipe.png  width=700 >
 
 
 ## Features
