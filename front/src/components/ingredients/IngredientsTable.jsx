@@ -21,8 +21,8 @@ export default function IngredientsTable(props) {
             <th className="col-6" scope="col">
               Ingredient
             </th>
-            <th className="col-1" scope="col">
-              Add Item to search
+            <th className="col-2" scope="col">
+              Add item to search
             </th>
             <th className="col-1" scope="col">
               Delete

@@ -218,7 +218,7 @@ export default function InventoryPage(props) {
             </div>
           </div>
         </form>
-        <h2 id="myIngredients">My Ingredients</h2>
+        <h2 id="myIngredients" className="mt-5">My Ingredients</h2>
         {ingredients.length !== 0 && (
           <div>
             <div>
