@@ -18,11 +18,11 @@ Say you would like to cook something but you don't know what to cook with the in
 
 [**Design mockups & User Personas**](https://docs.google.com/document/d/1CRxxexZEyCP16yBf4R0G67XXxpC9m1gJHOS_grpqLhQ/) (also in deliverables/v1 folder)
 
-[**Deployed app**](https://canyoucookit.onrender.com/)
+[**Deployed app**](https://canyoucookit-v2.onrender.com)
 
 [**Presentation slides**](https://docs.google.com/presentation/d/16QrTi0ZzCHL-F4oSqd8V9Q6LkrJpMMOsRDTtxmA4UsI) (also in deliverables folder)
 
-[**Video Walkthrough**](https://www.youtube.com/watch?v=sC2YmiDTYjw)
+[**Video Walkthrough**](https://youtu.be/0HpHNkHyxaM)
 
 ## Screenshots
 Homepage
