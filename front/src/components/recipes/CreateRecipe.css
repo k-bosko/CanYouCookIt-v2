@@ -6,6 +6,7 @@
   font-size: 1.3rem;
   border-radius: 5px;
   border: 1px solid hsl(198, 1%, 29%);
+  font-family: "Raleway";
 }
 
 .btn-create:hover, .btn-create:focus {
@@ -15,4 +16,13 @@
   border-radius: 5px;
   border: 1px solid hsl(198, 1%, 29%);
   background-color: #769505;
+}
+
+#dialog1Title, #ingredients, #imageFile {
+  font-family: "Raleway";
+  font-weight: 700;
+}
+
+form-control {
+  font-family: "Raleway";
 }

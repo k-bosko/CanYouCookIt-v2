@@ -17,7 +17,7 @@ function AboutPage() {
               authentication.
             </p>
             <p>
-              We use external API -{" "}
+              We use external API provider -{" "}
               <Link to="https://spoonacular.com/">Spoonacular</Link> - to find
               the recipes and there are only 150 API calls for free per day. If
               the limit is depleted, please come back next day.

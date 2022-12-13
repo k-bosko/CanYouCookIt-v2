@@ -127,7 +127,7 @@ function CreateRecipe(props) {
       >
         <Button
           aria-label="Create new recipe"
-          variant="btn btn-create ms-5"
+          variant="btn btn-create ms-4"
           onClick={handleShow}
         >
           {<i className="bi bi-plus-lg"></i>}
@@ -146,6 +146,7 @@ function CreateRecipe(props) {
                 </div>
               </Form.Label>
               <Form.Control
+                className="form-control"
                 name="title"
                 id="title"
                 as="textarea"

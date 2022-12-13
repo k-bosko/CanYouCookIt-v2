@@ -1,0 +1,14 @@
+.modalCheckbox {
+  font-family: "Raleway";
+}
+
+#dialog1Title,
+#ingredients,
+#imageFile {
+  font-family: "Raleway";
+  font-weight: 700;
+}
+
+form-control {
+  font-family: "Raleway";
+}

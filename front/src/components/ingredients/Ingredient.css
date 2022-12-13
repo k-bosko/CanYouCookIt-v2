@@ -6,3 +6,16 @@
   object-fit: cover;
 }
 
+td {
+  font-family: "Raleway";
+  font-size: larger;
+  vertical-align: middle;
+}
+
+th {
+  font-family: "Bitter";
+  font-weight: x-large;
+  font-size: larger;
+}
+
+

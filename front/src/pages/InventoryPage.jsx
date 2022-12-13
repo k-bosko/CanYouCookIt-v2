@@ -60,7 +60,6 @@ export default function InventoryPage(props) {
     getMyIngredientsInventory();
   }, [currentPage]);
 
-
   const handleCheckedChange = (event) => {
     setCheckedState((prevFormData) => {
       let updatedObj = {
@@ -83,7 +82,9 @@ export default function InventoryPage(props) {
         //if deleted all ingredients from current page, need to go to previous page
         if (ingredientsJson.length === 0 && currentPage - 1 > 0) {
           setCurrentPage(currentPage - 1);
-          const prevPageResponse = await fetch("/api/myinventory/?p=" + currentPage);
+          const prevPageResponse = await fetch(
+            "/api/myinventory/?p=" + currentPage
+          );
           if (prevPageResponse.ok) {
             const prevPageIngedientsJson = await prevPageResponse.json();
             setIngredients([...prevPageIngedientsJson]);
@@ -182,6 +183,7 @@ export default function InventoryPage(props) {
           <div className="row">
             <div className="col-6">
               <input
+                type="text"
                 className="form-control mb-3"
                 list="possible-ingredients"
                 name="item"
@@ -204,9 +206,9 @@ export default function InventoryPage(props) {
               <button
                 type="submit"
                 disabled={!btnEnabled}
-                className="btn btn-primary"
+                className="btn btn-custom btn-green"
               >
-                +Add
+                {<i className="bi bi-plus-lg"></i>}
               </button>
             </div>
           </div>
@@ -214,7 +216,9 @@ export default function InventoryPage(props) {
         {ingredients.length !== 0 && (
           <div>
             <div>
-              <h2 id="myIngredients">My Ingredients</h2>
+              <h2 id="myIngredients" className="mt-5">
+                My Ingredients
+              </h2>
               <IngredientsTable
                 deleteItem={deleteItem}
                 ingredients={ingredients}

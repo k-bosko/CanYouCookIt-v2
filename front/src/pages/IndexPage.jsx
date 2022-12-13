@@ -7,30 +7,6 @@ IndexPage.propTypes = {};
 function IndexPage() {
   return (
     <BasePage>
-      {/* <div>
-        <div className="container">
-          <div className="row mt-5 mb-5">
-            <h1>Welcome to CanYouCookIt!</h1>
-            <div className="col-5">
-              <p>
-                CanYouCookIt helps you to find the matching recipes based on the
-                list of ingredients you have at home.
-              </p>
-              <Link className="btn btn-custom btn-green mt-4" to="/inventory">
-                Get Started
-              </Link>
-            </div>
-            <div className="col-5">
-              <img
-                src="./images/tomato_pie.jpeg"
-                alt="tomato pie"
-                width="500"
-              />
-            </div>
-          </div>
-        </div>
-      </div> */}
-
       <div class="container col-xxl-8 px-4 py-5">
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
           <div class="col-10 col-sm-8 col-lg-6">
