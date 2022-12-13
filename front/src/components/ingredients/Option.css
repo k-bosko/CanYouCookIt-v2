@@ -2,12 +2,13 @@
   display: inline-block;
   margin-top: -12px;
   margin-bottom: -12px;
+  font-family: "Raleway";
 }
 
 .dropdown-content {
   background-color: #f9f9f9;
-  min-width: 160px;
-  padding: 12px 16px;
+  min-width: 10rem;
+  padding: 0.8rem 1.2rem;
   z-index: 1;
   width: 51%;
   border: #eee;
@@ -15,8 +16,8 @@
 
 .dropdown-content:hover {
   background-color: #f9f9f9;
-  min-width: 160px;
-  padding: 12px 16px;
+  min-width: 10rem;
+  padding: 0.8rem 1.3rem;
   z-index: 1;
   width: 51%;
   background-color: #eee;

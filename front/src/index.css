@@ -66,7 +66,7 @@ input[type="text"] {
   font-family: "Raleway";
 }
 
-textarea {
+textarea, input[type=text] {
   font-family: "Raleway";
 }
 

@@ -146,7 +146,7 @@ function RecipeDetails(props) {
             aria-labelledby="ConfirmDeleteTitle"
             show={showDeleteModal}
             onHide={() => setShowDeleteModal(false)}
-            keyboard={false}
+            keyboard={true}
           >
             <Modal.Header closeButton>
               <Modal.Title id="ConfirmDeleteTitle">Confirm Delete</Modal.Title>
