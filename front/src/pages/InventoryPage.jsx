@@ -4,6 +4,7 @@ import OptionsList from "../components/ingredients/OptionsList.jsx";
 import IngredientsTable from "../components/ingredients/IngredientsTable.jsx";
 import Pagination from "./Pagination";
 import { INGREDIENTS_PER_PAGE } from "../utils/utils.js";
+import NoIngredientsBox from "../components/ingredients/NoIngredientsBox.jsx";
 
 InventoryPage.propTypes = {
   setShowSearch: PropTypes.func,
@@ -60,7 +61,6 @@ export default function InventoryPage(props) {
     getMyIngredientsInventory();
   }, [currentPage]);
 
-
   const handleCheckedChange = (event) => {
     setCheckedState((prevFormData) => {
       let updatedObj = {
@@ -83,7 +83,9 @@ export default function InventoryPage(props) {
         //if deleted all ingredients from current page, need to go to previous page
         if (ingredientsJson.length === 0 && currentPage - 1 > 0) {
           setCurrentPage(currentPage - 1);
-          const prevPageResponse = await fetch("/api/myinventory/?p=" + currentPage);
+          const prevPageResponse = await fetch(
+            "/api/myinventory/?p=" + currentPage
+          );
           if (prevPageResponse.ok) {
             const prevPageIngedientsJson = await prevPageResponse.json();
             setIngredients([...prevPageIngedientsJson]);
@@ -211,10 +213,10 @@ export default function InventoryPage(props) {
             </div>
           </div>
         </form>
+        <h2 id="myIngredients">My Ingredients</h2>
         {ingredients.length !== 0 && (
           <div>
             <div>
-              <h2 id="myIngredients">My Ingredients</h2>
               <IngredientsTable
                 deleteItem={deleteItem}
                 ingredients={ingredients}
@@ -230,6 +232,7 @@ export default function InventoryPage(props) {
             />
           </div>
         )}
+        {ingredients.length === 0 && <NoIngredientsBox></NoIngredientsBox>}
       </div>
     </div>
   );

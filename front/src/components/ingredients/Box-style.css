@@ -1,0 +1,8 @@
+.box-style {
+  border-radius: 10px;
+  border: solid;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
