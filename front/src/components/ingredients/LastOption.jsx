@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Option.css";
 
-Option.propTypes = {
+LastOption.propTypes = {
   ingredient: PropTypes.object,
   setIngredient: PropTypes.func,
   setFormData: PropTypes.func,
@@ -10,7 +10,7 @@ Option.propTypes = {
   setOptions: PropTypes.func,
 };
 
-export default function Option(props) {
+export default function LastOption(props) {
   return (
     <button
       className="dropdown-content dropdown-elem"
@@ -22,8 +22,6 @@ export default function Option(props) {
       }}
     >
       {props.ingredient.name}
-      <br></br>
-      <br></br>
     </button>
   );
 }
