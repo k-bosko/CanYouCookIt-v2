@@ -9,7 +9,7 @@ export default function OptionsList(props) {
   return (
     <ul id="possible-ingredients" className="custom-dropdown">
       {props.options.map((ingredient, i) => {
-        if (i != props.options.length - 1) {
+        if (i !== props.options.length - 1) {
           i = i + 1;
           return (
             <li key={ingredient.id}>
