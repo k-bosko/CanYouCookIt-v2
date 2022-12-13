@@ -187,6 +187,7 @@ export default function InventoryPage(props) {
           <div className="row">
             <div className="col-6">
               <input
+                type="text"
                 className="form-control mb-3"
                 list="possible-ingredients"
                 name="item"
@@ -209,9 +210,9 @@ export default function InventoryPage(props) {
               <button
                 type="submit"
                 disabled={!btnEnabled}
-                className="btn btn-primary"
+                className="btn btn-custom btn-green"
               >
-                +Add
+                {<i className="bi bi-plus-lg"></i>}
               </button>
             </div>
           </div>

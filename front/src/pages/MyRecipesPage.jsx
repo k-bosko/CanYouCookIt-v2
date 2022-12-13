@@ -31,7 +31,7 @@ function MyRecipesPage() {
   return (
     <BasePage>
       <div className="container">
-        <div className="row">
+        <div className="row ms-0 me-0">
           <div className="d-flex align-content-start ps-0 pe-0">
             <h1>My Recipes</h1>
             <CreateRecipe setRecipes={setRecipes} />

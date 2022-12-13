@@ -4,15 +4,25 @@ h1 {
   margin-bottom: 3rem;
 }
 
-li, p {
+h2 {
+  font-family: "Raleway";
+  font-weight: 800;
+}
+
+li,
+p {
+  font-family: "Raleway";
   font-size: larger;
   text-align: justify;
-  font-family: "Raleway";
   white-space: pre-line;
 }
 
 div a {
   text-decoration: none;
+}
+
+input[type="text"] {
+  font-size: 1.3rem;
 }
 
 .btn-custom {
@@ -21,19 +31,23 @@ div a {
   font-size: 1.3rem;
   border-radius: 5px;
   border: 1px solid hsl(198, 1%, 29%);
+  font-family: "Raleway";
 }
 
-.btn-custom:hover, .btn-custom:focus {
+.btn-custom:hover,
+.btn-custom:focus {
   color: black;
   border-radius: 5px;
   border: 1px solid hsl(198, 1%, 29%);
+  font-family: "Raleway";
 }
 
 .btn-green {
   background-color: white;
 }
 
-.btn-green:hover, .btn-green:focus {
+.btn-green:hover,
+.btn-green:focus {
   background-color: #769505;
 }
 
@@ -41,11 +55,21 @@ div a {
   background-color: white;
 }
 
-.btn-red:hover, .btn-red:focus {
+.btn-red:hover,
+.btn-red:focus {
   background-color: #c02a01;
 }
 
 .modalLabel {
-  font-weight: 500;
+  font-weight: 700;
   font-size: larger;
+  font-family: "Raleway";
+}
+
+textarea {
+  font-family: "Raleway";
+}
+
+input[type=checkbox] {
+  transform: scale(1.5);
 }

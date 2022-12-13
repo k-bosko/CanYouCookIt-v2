@@ -23,7 +23,7 @@ export default function Ingredient(props) {
           "checkedstate of ingredient",
           props.checkedState[props.ingredient.name]
         )}
-        <div className="py-5 px-4">
+        <div>
           <input
             type="checkbox"
             id={props.ingredient.name}
@@ -34,15 +34,15 @@ export default function Ingredient(props) {
         </div>
       </td>
       <td>
-        <div className="py-5 px-3">
+        <div>
           <button
             type="button"
-            className="btn btn-danger"
+            className="btn btn-custom btn-red"
             onClick={() => {
               props.handleClick(props.ingredient.id, props.ingredient.name);
             }}
           >
-            X
+            <i className="bi bi-trash3"></i>
           </button>
         </div>
       </td>

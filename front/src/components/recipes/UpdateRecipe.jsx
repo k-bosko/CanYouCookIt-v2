@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
-import "./CreateRecipe.css";
+import "./UpdateRecipe.css";
 
 UpdateRecipe.propTypes = {
   recipe: PropTypes.object,
@@ -224,8 +224,8 @@ function UpdateRecipe(props) {
         <Modal.Body>
           <Form onSubmit={handleSubmit} id="recipeForm">
             <Form.Group className="mb-4">
-              <Form.Label htmlFor="title" >
-                <div className="modalLabel" >
+              <Form.Label htmlFor="title">
+                <div className="modalLabel">
                   Title:
                   <span className="text-danger">*</span>
                 </div>
@@ -242,19 +242,21 @@ function UpdateRecipe(props) {
               />
             </Form.Group>
             <Form.Group className="mb-4">
-              <Form.Label htmlFor="updateImage">
-                <div className="modalLabel" >
-                  Image (optional):
-                </div>
+              <Form.Label>
+                <div className="modalLabel"> Image:</div>
               </Form.Label>
-              <Form.Check
-                type="checkbox"
-                label="updateImage"
-                value={changeUploadImage}
-                onChange={handleCheckboxChange}
-                id="checkboxUploadImage"
-                name="checkboxUploadImage"
-              />
+              <div className="modalCheckbox">
+                <Form.Check
+                  role="checkbox"
+                  aria-checked={changeUploadImage}
+                  type="checkbox"
+                  label="update image"
+                  value={changeUploadImage}
+                  onChange={handleCheckboxChange}
+                  id="checkboxUploadImage"
+                  name="checkboxUploadImage"
+                />
+              </div>
               {changeUploadImage && (
                 <Form.Control
                   type="file"
@@ -266,9 +268,7 @@ function UpdateRecipe(props) {
             </Form.Group>
             <Form.Group className="mb-4">
               <Form.Label htmlFor="ingredients">
-                <div className="modalLabel" >
-                  Ingredients:
-                </div>
+                <div className="modalLabel">Ingredients:</div>
               </Form.Label>
               {props.recipe.extendedIngredients.map((ingredient, idx) => {
                 return (
@@ -311,9 +311,7 @@ function UpdateRecipe(props) {
             </Form.Group>
             <Form.Group className="mb-4">
               <Form.Label htmlFor="instructions">
-                <div className="modalLabel" >
-                  Instructions:
-                </div>
+                <div className="modalLabel">Instructions:</div>
               </Form.Label>
               <Form.Control
                 as="textarea"
