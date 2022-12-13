@@ -122,7 +122,7 @@ export default function InventoryPage(props) {
       let res = await fetch(
         "/api/ingredients?" +
           new URLSearchParams({
-            query: event.target.value,
+            query: event.target.value.toLowerCase(),
           })
       );
       const items = await res.json();
@@ -209,6 +209,7 @@ export default function InventoryPage(props) {
             <div className="col-2">
               <button
                 type="submit"
+                aria-label="add-ingredients-button"
                 disabled={!btnEnabled}
                 className="btn btn-custom btn-green"
               >

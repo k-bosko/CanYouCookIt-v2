@@ -37,6 +37,7 @@ export default function Ingredient(props) {
         <div>
           <button
             type="button"
+            aria-label="delete-button"
             className="btn btn-custom btn-red"
             onClick={() => {
               props.handleClick(props.ingredient.id, props.ingredient.name);
