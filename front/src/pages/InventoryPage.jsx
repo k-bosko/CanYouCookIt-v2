@@ -112,6 +112,9 @@ export default function InventoryPage(props) {
         ...prevFormData,
         [event.target.name]: event.target.value,
       };
+      if (event.target.value.length < 3) {
+        setOptions([]);
+      }
       return updatedObj;
     });
 
