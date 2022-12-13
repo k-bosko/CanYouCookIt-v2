@@ -15,8 +15,10 @@ export default function IngredientsTable(props) {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th className="col-1" scope="col"></th>
-            <th className="col-6" scope="col-6">
+            <th className="col-1" scope="col">
+              Image
+            </th>
+            <th className="col-6" scope="col">
               Ingredient
             </th>
             <th className="col-1" scope="col">

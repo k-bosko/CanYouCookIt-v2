@@ -14,14 +14,19 @@ export default function Ingredient(props) {
         />
       </td>
       <td>
-        <div className="py-5 px-2">{props.ingredient.name}</div>
+        <label htmlFor={props.ingredient.name} className="py-5 px-2">
+          {props.ingredient.name}
+        </label>
       </td>
       <td>
-        {console.log("checkedstate of ingredient", props.checkedState[props.ingredient.name])}
+        {console.log(
+          "checkedstate of ingredient",
+          props.checkedState[props.ingredient.name]
+        )}
         <div className="py-5 px-4">
           <input
             type="checkbox"
-            id="flexCheckDefault"
+            id={props.ingredient.name}
             name={props.ingredient.name}
             onChange={props.handleCheckedChange}
             defaultChecked={props.checkedState[props.ingredient.name]}

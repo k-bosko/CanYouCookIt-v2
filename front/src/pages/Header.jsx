@@ -5,7 +5,7 @@ import "./Header.css";
 function Header() {
   return (
     <header>
-      <nav className="navbar navbar-expand-lg Header">
+      <nav aria-label="Header" className="navbar navbar-expand-lg Header">
         <img
           src="/images/logo.png"
           className="ps-4 pb-1 ms-3"
