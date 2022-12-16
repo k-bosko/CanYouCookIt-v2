@@ -54,8 +54,8 @@ function AboutPage() {
               </li>
               <li>Go to Recipes page to see your saved recipes.</li>
               <li>
-                You can edit the recipes by double clicking on title,
-                ingredients or instructions on the right.
+                You can edit the recipes by double clicking on title ingredients
+                ,or instructions on the right.
               </li>
               <li>
                 You can also add your own recipes with your custom images by
